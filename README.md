@@ -4,7 +4,7 @@ A library of generic data structures implemented in C.
 ## Features
 ---
 
-This library features various data structures for C or C++.
+This library features various generic data structures for C.
 These data structures are all generic, supporting anything you can throw at them!
 The data structures provided (or intended to be provided) in this library are:
 
