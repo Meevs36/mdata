@@ -15,9 +15,14 @@ LIB_DIR = lib
 OBJ_DIR = obj
 BIN_DIR = bin
 
-SOURCES := $(wildcard $(SRC_DIR)/*$(SRC_EXT))
-INCLUDE := $(wildcard $(INC_DIR)/*$(INC_EXT))
+rwildcard = $(wildcard $1$2) $(foreach dir, $(wildcard $1*), $(call rwildcard, $(dir)/,$2))
+
+SOURCES := $(call rwildcard, $(SRC_DIR),*$(SRC_EXT))
+INCLUDE := $(call rwildcard, $(INC_DIR),*$(INC_EXT))
 OBJECTS := $(SOURCES:$(SRC_DIR)/%$(SRC_EXT)=$(OBJ_DIR)/%.o)
+
+SRC_DIRS=$(sort $(dir $(call rwildcard, $(SRC_DIR),*/))) # Nested source directories
+OBJ_DIRS=$(SRC_DIRS:$(SRC_DIR)/%=$(OBJ_DIR)/%) # Corresponding nested object directories
 
 all: help
 
@@ -38,7 +43,8 @@ install: build
 	@cp $(INCLUDE) /usr/include/
 	@echo "Meevs Box Data Library has been successfully installed!"
 
-build: $(BIN_DIR)/$(TARGET)
+build: $(OBJ_DIRS) $(BIN_DIR)/$(TARGET)
+	@echo "Build successful!"
 
 $(BIN_DIR)/$(TARGET): $(OBJECTS)
 	if ! [ -d $(BIN_DIR) ]; then mkdir $(BIN_DIR); fi
@@ -46,8 +52,10 @@ $(BIN_DIR)/$(TARGET): $(OBJECTS)
 	@echo "Target: $(TARGET) has been successfully built!"
 
 $(OBJECTS): $(OBJ_DIR)/%.o : $(SRC_DIR)/%$(SRC_EXT)
-	if ! [ -d $(OBJ_DIR) ]; then mkdir $(OBJ_DIR); fi
 	$(CC) $(BASE_FLAGS) $(OBJ_FLAGS) $(OUT_FLAGS) $(FLAGS) -fPIC
+
+$(OBJ_DIRS):
+	$(foreach dir, $@, if ! [ -d $(dir) ]; then mkdir $(dir) ; fi)
 
 uninstall:
 	rm /usr/lib/$(TARGET)
