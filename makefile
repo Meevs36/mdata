@@ -1,6 +1,6 @@
 TARGET = libmbdata.so
 FLAGS = -Wall
-BASE_FLAGS = -I$(INC_DIR) -L$(LIB_DIR)
+BASE_FLAGS = $(foreach dir, $(INC_DIRS), -I$(dir)) -L$(LIB_DIR)
 OUT_FLAGS = -o $@
 OBJ_FLAGS = -c $<
 
@@ -21,8 +21,9 @@ SOURCES := $(call rwildcard, $(SRC_DIR),*$(SRC_EXT))
 INCLUDE := $(call rwildcard, $(INC_DIR),*$(INC_EXT))
 OBJECTS := $(SOURCES:$(SRC_DIR)/%$(SRC_EXT)=$(OBJ_DIR)/%.o)
 
-SRC_DIRS=$(sort $(dir $(call rwildcard, $(SRC_DIR),*/))) # Nested source directories
-OBJ_DIRS=$(SRC_DIRS:$(SRC_DIR)/%=$(OBJ_DIR)/%) # Corresponding nested object directories
+SRC_DIRS := $(sort $(dir $(call rwildcard, $(SRC_DIR),*/))) # Nested source directories
+INC_DIRS := $(sort $(dir $(call rwildcard, $(INC_DIR),*/))) # Nested include directories
+OBJ_DIRS := $(SRC_DIRS:$(SRC_DIR)/%=$(OBJ_DIR)/%) # Corresponding nested object directories
 
 all: help
 
@@ -39,8 +40,9 @@ help:
 
 install: build
 	@echo "Found target: $(TARGET)"
-	@cp $(BIN_DIR)/$(TARGET)  /usr/lib/$(TARGET)
-	@cp $(INCLUDE) /usr/include/
+	cp $(BIN_DIR)/$(TARGET)  /usr/lib/$(TARGET)
+	if ! [ -d /usr/include/mbdata ]; then mkdir /usr/include/mbdata; fi
+	cp -r $(INCLUDE) /usr/include/mbdata/
 	@echo "Meevs Box Data Library has been successfully installed!"
 
 build: $(OBJ_DIRS) $(BIN_DIR)/$(TARGET)
@@ -55,10 +57,11 @@ $(OBJECTS): $(OBJ_DIR)/%.o : $(SRC_DIR)/%$(SRC_EXT)
 	$(CC) $(BASE_FLAGS) $(OBJ_FLAGS) $(OUT_FLAGS) $(FLAGS) -fPIC
 
 $(OBJ_DIRS):
-	$(foreach dir, $@, if ! [ -d $(dir) ]; then mkdir $(dir) ; fi)
+	$(foreach dir, $@, if ! [ -d $(dir) ]; then mkdir $(dir); fi)
 
 uninstall:
-	rm /usr/lib/$(TARGET)
+	if [ -f /usr/lib/$(TARGET) ]; then rm /usr/lib/$(TARGET); fi
+	if [ -d /usr/include/mbdata ]; then rm -r /usr/include/mbdata; fi
 	@echo "Meevs Box Data Library has been successfully uninstalled!"
 
 clean: tidy

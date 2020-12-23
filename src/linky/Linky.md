@@ -30,11 +30,17 @@ The expected data `type` must be provides, meaning the user is reponsible for ma
 - `linkyDestroyList (struct linky *list)` will release all allocated memory associated with the list.
 User allocated memory that is appended to the list will not be released, it is expected the user will handle this.
 
+## Usage
+
+To use Linky, first you must include the Linky header `#include <mbdata/linky.h>`.
+Then, when compiling your program, simply include the `-lmbdata` flag.
+
 ## Example
 
-Provided is an example of a Linky list being used to store multiple integers.
+Provided is an example code snippet of a Linky list being used to store multiple integers.
 
 ```
+
   int x = 5;
   int z = 15;
 
