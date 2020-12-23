@@ -23,9 +23,9 @@ Now that the library is built, you can install the library by running the comman
 After the library is installed, you can use it in your projects by compiling with the `-lmbdata` flag.
 
 ## Library References
-- [Linky](Linky.md)
-- [Stacky](Stacky.md)
-- [Queue](Queue.md)
+- [Linky](src/linky/Linky.md)
+- [Stacky](src/stacky/Stacky.md)
+- [Queue](src/queue/Queue.md)
 
 
 
