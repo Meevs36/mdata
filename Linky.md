@@ -21,13 +21,12 @@ The Linky data structure is defined as follows:
 
 ## Linky Functions
 
-- `linkyAddNode (list, data)` is a convenience macro that will append the given data value to the given list.
+- `linkyAddNode (struct linky *list, data)` is a convenience macro that will append the given data value to the given list.
 If `list` is `NULL` the function will initialize a new Linky list for you.
 `data` can be of any type (with the exception of `float` or `double` for the time being.
 
-- `linkyGetData (list, type)` is a convenience macro that will retrieve the data at the given node.
-The expected type of the data must be provided.
-This means the user is reponsible for maintaining the type integrity of the Linky lists they create.
+- `linkyGetData (struct linky *list, type)` is a convenience macro that will retrieve the data at the given node.
+The expected data `type` must be provides, meaning the user is reponsible for maintaining the type integrity of the Linky lists they create.
 
 - `linkyDestroyList (struct linky *list)` will release all allocated memory associated with the list.
 User allocated memory that is appended to the list will not be released, it is expected the user will handle this.
