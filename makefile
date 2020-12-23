@@ -36,7 +36,7 @@ install: build
 	@echo "Found target: $(TARGET)"
 	@cp $(BIN_DIR)/$(TARGET)  /usr/lib/$(TARGET)
 	@cp $(INCLUDE) /usr/include/
-	@echo "mbdata has been successfully installed!"
+	@echo "Meevs Box Data Library has been successfully installed!"
 
 build: $(BIN_DIR)/$(TARGET)
 
@@ -51,7 +51,7 @@ $(OBJECTS): $(OBJ_DIR)/%.o : $(SRC_DIR)/%$(SRC_EXT)
 
 uninstall:
 	rm /usr/lib/$(TARGET)
-	@echo "mbdata has been successfully uninstalled!"
+	@echo "Meevs Box Data Library has been successfully uninstalled!"
 
 clean: tidy
 	-rm -r $(BIN_DIR)
