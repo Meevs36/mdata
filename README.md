@@ -20,7 +20,7 @@ You can compile the library by running the command `make build`.
 
 Now that the library is built, you can install the library by running the command `make install` with root permissions.
 
-After the library is installed, you can use it in your projects by compiling with the `-lmbdata` flag.
+After the library is installed, you can use it in your projects by compiling with the `-lmdata` flag.
 
 ## Library References
 - [Linky](src/linky/Linky.md)

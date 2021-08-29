@@ -1,4 +1,4 @@
-TARGET = libmbdata.so
+TARGET = libmdata.so
 FLAGS = -Wall
 BASE_FLAGS = $(foreach dir, $(INC_DIRS), -I$(dir)) -L$(LIB_DIR)
 OUT_FLAGS = -o $@
@@ -32,17 +32,17 @@ help:
 	@echo ""
 	@echo "Makefile targets:"
 	@echo "  build -- Builds the library"
-	@echo "  install -- Installs the mbdata library onto the machine"
-	@echo "  clean -- Deletes the mbdata build directory"
-	@echo "  uninstall -- Removes the mbdata library from the current machine"
+	@echo "  install -- Installs the mdata library onto the machine"
+	@echo "  clean -- Deletes the mdata build directory"
+	@echo "  uninstall -- Removes the mdata library from the current machine"
 	@echo ""
-	@echo "To use the mbdata library with your projects, include the \"-lmbdata\" flag when compiling"
+	@echo "To use the mdata library with your projects, include the \"-lmdata\" flag when compiling"
 
 install: build
 	@echo "Found target: $(TARGET)"
 	cp $(BIN_DIR)/$(TARGET)  /usr/lib/$(TARGET)
-	if ! [ -d /usr/include/mbdata ]; then mkdir /usr/include/mbdata; fi
-	cp -r $(INCLUDE) /usr/include/mbdata/
+	if ! [ -d /usr/include/mdata ]; then mkdir /usr/include/mdata; fi
+	cp -r $(INCLUDE) /usr/include/mdata/
 	@echo "Meevs Box Data Library has been successfully installed!"
 
 build: $(OBJ_DIRS) $(BIN_DIR)/$(TARGET)
@@ -61,7 +61,7 @@ $(OBJ_DIRS):
 
 uninstall:
 	if [ -f /usr/lib/$(TARGET) ]; then rm /usr/lib/$(TARGET); fi
-	if [ -d /usr/include/mbdata ]; then rm -r /usr/include/mbdata; fi
+	if [ -d /usr/include/mdata ]; then rm -r /usr/include/mdata; fi
 	@echo "Meevs Box Data Library has been successfully uninstalled!"
 
 clean: tidy
