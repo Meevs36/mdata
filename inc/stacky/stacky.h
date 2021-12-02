@@ -32,6 +32,7 @@ struct stacky
   _Pragma ("GCC diagnostic pop")				
 
 #define stackyPop(stacky, type) (*(type *)stackyPopData (&stacky))
+#define stackyPeak(stacky, type) (*(type *)stacky->data)
 
 struct stacky *stackyCreateNode (struct stacky **stack);
 

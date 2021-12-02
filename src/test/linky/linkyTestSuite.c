@@ -22,7 +22,7 @@ int main (int argC, char **argV)
 
   srunner_free (suiteRunner);
   
-  return (numberFailed == 0)? EXIT_SUCCESS : EXIT_FAILURE;
+  return (numberFailed == 0)? 0 : 1;
 }
 
 Suite *genLinkyTestSuite ()

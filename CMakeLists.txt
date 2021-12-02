@@ -11,4 +11,5 @@ add_subdirectory (inc)
 add_subdirectory (src)
 
 enable_testing ()
-add_test (NAME linkyTest COMMAND src/test/mdataLinkyTest)
+add_test (NAME linkyTest COMMAND src/test/linky/mdataLinkyTest)
+add_test (NAME stackyTest COMMAND src/test/stacky/mdataStackyTest)
