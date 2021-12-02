@@ -10,3 +10,5 @@ project (mdata VERSION 0.1.0)
 add_subdirectory (inc)
 add_subdirectory (src)
 
+enable_testing ()
+add_test (NAME linkyTest COMMAND src/test/mdataLinkyTest)
