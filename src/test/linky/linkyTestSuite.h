@@ -13,6 +13,7 @@
 #include <linky.h>
 
 #include "linkyBasicFuncTests.h" /* Defines basic functionality tests */
+#include "linkyDoubleLinkedListTest.h" /* Defines functionality tests for double linked lists */
 
 Suite *genLinkyTestSuite ();
 TCase *genBasicTestCase ();

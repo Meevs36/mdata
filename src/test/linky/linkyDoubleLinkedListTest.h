@@ -8,7 +8,8 @@
 #ifndef __LINKY_DOUBLE_LINKED_LIST_TEST__
 #define __LINKY_DOUBLE_LINKED_LIST_TEST__
 
-#inlcude <linky.h>
+#include <stdio.h>
+#include <linky.h>
 
 /*
  * Author -- Meevs
@@ -25,20 +26,39 @@ START_TEST (dllTraversalTest)
   linky *tempPtr = NULL;
   int index = 0;
 
+  printf ("/* ******************************************************************************** */\r\n"
+	  "/* * Double Linked List Traversal Test                                              */\r\n"
+	  "/* ******************************************************************************** */\r\n\r\n");
+
+  printf ("Init Linky list:\r\n");
+  
   /* Init List */
   for (index = 0; index < 10; index++)
-    linkyAddNode (list, index);
+    {
+      printf ("\tAdding element: %d to list\r\n", index);
+      linkyAddNode (list, index);
+    }
+
+  printf ("Linky list traversal (forwards):\r\n");
 
   /* Traverse list forwards */
-  for (tempPtr = list, index = 1; tempPtr; tempPtr = tempPtr->next, index++)
-    ck_assert (linkyGetData (list, int) == index);
-
+  for (tempPtr = list, index = 0; tempPtr; tempPtr = tempPtr->next, index++)
+    {
+      printf ("\tExpected: %d, Actual: %d\r\n", index, linkyGetData (tempPtr, int));
+      ck_assert (linkyGetData (tempPtr, int) == index);
+    }
+  
   /* Repoint tempPtr to end of list */
   for (tempPtr = list; tempPtr->next; tempPtr = tempPtr->next);
+
+  printf ("Linky list traversal (backwards):\r\n");
   
   /* Traverse list backwards */
   for (index = 9; tempPtr; tempPtr = tempPtr->prev, index--)
-    ck_assert (linkyGetData (list, int) == index);
+    {
+      printf ("\tExpected: %d, Actual: %d\r\n", index, linkyGetData (tempPtr, int));
+      ck_assert (linkyGetData (tempPtr, int) == index);
+    }
   
   linkyDestroyList (list);
 }
