@@ -8,7 +8,9 @@
 #ifndef __STACKY_BASIC_FUNC_TESTS__
 #define __STACKY_BASIC_FUNC_TESTS__
 
+#include <stdio.h>
 #include <string.h>
+#include <stacky.h>
 
 /*
  * Author -- Meevs
@@ -23,8 +25,16 @@ START_TEST (stackyInitTest)
 {
   stacky *stack = NULL;
 
+  printf ("\r\n/* ******************************************************************************** */\r\n"
+	  "/* * Stacky Init Test                                                             * */\r\n"
+	  "/* ******************************************************************************** */\r\n\r\n"	  
+	  "Initializing Stacky stack with value: 10\r\n");
+  
   stackyPush (stack, 10);
 
+  printf ("Checking data of Stacky stack:\r\n");
+  printf ("\tExpected value: 10, Actual value: %d\r\n", *(int *)stack->data);
+  
   ck_assert (*(int *)stack->data == 10);
   
   stackyDestroyStack (stack);
@@ -44,8 +54,16 @@ START_TEST (simpleStack)
 {
   stacky *stack = NULL;
 
+  printf ("\r\n/* ******************************************************************************** */\r\n"
+	  "/* * Simple Stack                                                                 * */\r\n"
+	  "/* ******************************************************************************** */\r\n\r\n"
+	  "Initializing Stacky stack with value: 10\r\n");
+
   stackyPush (stack, 10);
-  
+
+  printf ("Confirming return value of 'stackyPop':\r\n");
+  printf ("\tExpected value: 10, Actual value; %d\r\n", *(int *)stack->data);
+	  
   ck_assert (stackyPop (stack, int) == 10);
 
   stackyDestroyStack (stack);
@@ -64,14 +82,26 @@ END_TEST
 START_TEST (popTest)
 {
   stacky *stack = NULL;
+  const int elements [] = {15, 10, 5, 0};
+  int index = 0;
 
-  stackyPush (stack, 15);
-  stackyPush (stack, 10);
-  stackyPush (stack, 5);
+  printf ("\r\n/* ******************************************************************************** */\r\n"
+	  "/* * Pop Test                                                                     * */\r\n"
+	  "/* ******************************************************************************** */\r\n\r\n"
+	  "Initializing Stack stack:\r\n");
 
-  ck_assert (stackyPop (stack, int) == 5);
-  ck_assert (stackyPop (stack, int) == 10);
-  ck_assert (stackyPop (stack, int) == 15);
+  for (index = 0; elements [index]; index++)
+    {
+      printf ("\tAdding element: %d\r\n", elements [index]);
+      stackyPush (stack, elements [index]);
+    }
+
+  printf ("\r\nConfirming structure of stack:\r\n");
+  for (index = index - 1; index >= 0; index--)
+    {
+      printf ("Expected value: %d, Actual value: %d\r\n", elements [index], *(int *)stack->data);
+      ck_assert (stackyPop (stack, int) == elements [index]);
+    }
 
   stackyDestroyStack (stack);
 }
@@ -89,13 +119,23 @@ END_TEST
 START_TEST (peakTest)
 {
   stacky *stack = NULL;
+  const int elements [] = {15, 10, 5, 0};
+  int index = 0;
 
-  stackyPush (stack, 15);
-  ck_assert (stackyPeak (stack, int) == 15);
-  stackyPush (stack, 10); 
-  ck_assert (stackyPeak (stack, int) == 10);
-  stackyPush (stack, 5);
-  ck_assert (stackyPeak (stack, int) == 5);
+  printf ("\r\n/* ******************************************************************************** */\r\n"
+	  "/* * Peak Test                                                                    * */\r\n"
+	  "/* ******************************************************************************** */\r\n\r\n"
+	  "Initialization of Stacky stack:\r\n");
+
+  for (index = 0; elements [index]; index++)
+    {
+      printf ("\tAdding element: %d\r\n", elements [index]);
+      stackyPush (stack, elements [index]);
+
+      printf ("\tPeaking:\r\n");
+      printf ("\t\tExpected value: %d, Actual value: %d\r\n", elements [index], stackyPeak (stack, int));
+      ck_assert (stackyPeak (stack, int) == elements [index]);
+    }
 
   stackyDestroyStack (stack);
 }
@@ -116,13 +156,22 @@ START_TEST (stackyCharTest)
   const char elements [] = {'a', 'b', 'c', '\0'};
   int index = 0;
 
+  printf ("\r\n/* ******************************************************************************** */\r\n"
+	  "/* * Stacky Char Test                                                             * */\r\n"
+	  "/* ******************************************************************************** */\r\n\r\n"	  
+	  "Initialization of Stacky stack:\r\n");
+  
   for (index = 0; elements [index]; index++)
     {
+      printf ("\tAdding element: %c\r\n", elements [index]);
       stackyPush (stack, elements [index]);
     }
 
+  printf ("\r\nConfirming structure of Stacky stack:\r\n");
+  
   for (index = index - 1; index >= 0; index--)
     {
+      printf ("\tExpected value: %c, Actual value: %c\r\n", elements [index], stackyPeak (stack, char));
       ck_assert (stackyPop (stack, char) == elements [index]);
     }
   
@@ -145,13 +194,22 @@ START_TEST (stackyShortTest)
   const short elements [] = {10, 15, 20, 0};
   int index = 0;
 
+  printf ("\r\n/* ******************************************************************************** */\r\n"
+	  "/* * Stacky Short Test                                                            * */\r\n"
+	  "/* ******************************************************************************** */\r\n\r\n"
+	  "Initialization of Stacky stack:\r\n");
+
   for (index = 0; elements [index]; index++)
     {
+      printf ("\tAdding element: %hd\r\n", elements [index]);
       stackyPush (stack, elements [index]);
     }
 
+  printf ("\r\nConfirming structure of Stacky stack:\r\n");
+
   for (index = index - 1; index >= 0; index--)
     {
+      printf ("\tExpected value: %hd, Actual value: %hd\r\n", elements [index], stackyPeak (stack, short));
       ck_assert (stackyPop (stack, short) == elements [index]);
     }
   
@@ -174,13 +232,22 @@ START_TEST (stackyIntTest)
   const int elements [] = {10, 15, 20, 0};
   int index = 0;
 
+  printf ("\r\n/* ******************************************************************************** */\r\n"
+	  "/* * Stacky Int Test                                                              * */\r\n"
+	  "/* ******************************************************************************** */\r\n\r\n"
+	  "Initialization of Stacky stack:\r\n");
+
   for (index = 0; elements [index]; index++)
     {
+      printf ("\tAdding element: %d\r\n", elements [index]);
       stackyPush (stack, elements [index]);
     }
 
+  printf ("\r\nConfirming structure of Stacky stack:\r\n");
+
   for (index = index - 1; index >= 0; index--)
     {
+      printf ("\tExpected value: %d, Actual value: %d\r\n", elements [index], stackyPeak (stack, int));
       ck_assert (stackyPop (stack, int) == elements [index]);
     }
 
@@ -203,13 +270,22 @@ START_TEST (stackyLongTest)
   const long elements [] = {10, 15, 20, 0};
   int index = 0;
 
+  printf ("\r\n/* ******************************************************************************** */\r\n"
+	  "/* * Stacky Long Test                                                             * */\r\n"
+	  "/* ******************************************************************************** */\r\n\r\n"
+	  "Initialization of Stacky stack:\r\n");
+
   for (index = 0; elements [index]; index++)
     {
+      printf ("\tAdding element: %ld\r\n", elements [index]);
       stackyPush (stack, elements [index]);
     }
 
+  printf ("\r\nConfirming structure of Stacky stack:\r\n");
+
   for (index = index - 1; index >= 0; index--)
     {
+      printf ("\tExpected value: %ld, Actual value: %ld\r\n", elements [index], stackyPeak (stack, long));
       ck_assert (stackyPop (stack, long) == elements [index]);
     }
 
@@ -233,13 +309,22 @@ START_TEST (stackyPtrTest)
   const char *elements [] = {"Hello", " ", "World", NULL};
   int index = 0;
 
+  printf ("\r\n/* ******************************************************************************** */\r\n"
+	  "/* * Stacky Ptr Test                                                              * */\r\n"
+	  "/* ******************************************************************************** */\r\n\r\n"
+	  "Initialization of Stacky stack:\r\n");
+
   for (index = 0; elements [index]; index++)
     {
+      printf ("\tAdding element: %s\r\n", elements [index]);
       stackyPush (stack, elements [index]);
     }
 
+  printf ("\r\nConfirming structure of Stacky stack:\r\n");
+  
   for (index = index - 1; index >= 0; index--)
     {
+      printf ("\tExpected value: %s, Actual value: %s\r\n", elements [index], stackyPeak (stack, char *));
       ck_assert (strncmp (stackyPop (stack, char *), elements [index], 5) == 0);
     }
 
@@ -259,15 +344,35 @@ END_TEST
 START_TEST (isEmptyTestEmptyStack)
 {
   stacky *stack = NULL;
-
-  ck_assert (stackyIsEmpty (stack));
+  const int elements [] = {10, 15, 0};
+  int index = 0;
   
-  stackyPush (stack, 10);
-  stackyPush (stack, 15);
+  printf ("\r\n/* ******************************************************************************** */\r\n"
+	  "/* * IsEmpty Test with Empty Stack                                                * */\r\n"
+	  "/* ******************************************************************************** */\r\n\r\n"  
+	  "Confirm empty stack with non-initialized stack:\r\n"
+	  "\tExpected value: 1, Actual value: %d\r\n", stackyIsEmpty (stack));
+  
+  ck_assert (stackyIsEmpty (stack));
 
-  stackyPop (stack, int);
-  stackyPop (stack, int);
+  printf ("\r\nInitializing Stacky stack:\r\n");
 
+  for (index = 0; elements [index]; index++)
+    {
+      printf ("\tAdding element: %d\r\n", elements [index]);
+      stackyPush (stack, elements [index]);
+    }
+  
+  printf ("\r\nDeconstructing stack:\r\n");
+
+  for (; index > 0; index--)
+    {
+      printf ("\tRemoving element: %d\r\n", stackyPop (stack, int));
+    }
+
+  printf ("\r\nConfirming that isEmpty still returns true:\r\n"
+	  "\tExpected value: 1, Actual value: %d\r\n", stackyIsEmpty (stack));
+    
   ck_assert (stackyIsEmpty (stack));
 
   stackyDestroyStack (stack);  
@@ -287,8 +392,17 @@ START_TEST (isEmptyTestSingleElement)
 {
   stacky *stack = NULL;
 
+  printf ("\r\n/* ******************************************************************************** */\r\n"
+	  "/* * IsEmpty Test with Empty Stack                                                * */\r\n"
+	  "/* ******************************************************************************** */\r\n\r\n"
+	  "Initializing stack with single element:\r\n"
+	  "\tAdding element: 10\r\n");
+
   stackyPush (stack, 10);
 
+  printf ("\r\nConfirming Stacky stack is non-empty:\r\n"
+	  "\tExpected value: 0, Actual value: %d\r\n", stackyIsEmpty (stack));
+  
   ck_assert (!stackyIsEmpty (stack));
 
   stackyDestroyStack (stack);
@@ -307,11 +421,23 @@ END_TEST
 START_TEST (isEmptyTestMultipleElements)
 {
   stacky *stack = NULL;
+  const int elements [] = {15, 10, 5, 0};
+  int index = 0;
+  
+  printf ("\r\n/* ******************************************************************************** */\r\n"
+	  "/* * IsEmpty Test with Empty Stack                                                * */\r\n"
+	  "/* ******************************************************************************** */\r\n\r\n"
+	  "Initializing stack with multiple  elements:\r\n");
 
-  stackyPush (stack, 15);
-  stackyPush (stack, 10);
-  stackyPush (stack, 5);
+  for (index = 0; elements [index]; index++)
+    {
+      printf ("\tAdding element: %d\r\n", elements [index]);
+      stackyPush (stack, elements [index]);
+    }
 
+  printf ("\r\nConfirm isEmpty can still recognize that the Stacky stack is non-empty with multiple elements contained:\r\n"
+	  "\tExpected value: 0, Actual value: %d\r\n", stackyIsEmpty (stack));
+  
   ck_assert (!stackyIsEmpty (stack));
   
   stackyDestroyStack (stack);
