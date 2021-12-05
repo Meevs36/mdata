@@ -26,7 +26,7 @@ START_TEST (dllTraversalTest)
   linky *tempPtr = NULL;
   int index = 0;
 
-  printf ("/* ******************************************************************************** */\r\n"
+  printf ("\r\n/* ******************************************************************************** */\r\n"
 	  "/* * Double Linked List Traversal Test                                              */\r\n"
 	  "/* ******************************************************************************** */\r\n\r\n");
 
@@ -39,7 +39,7 @@ START_TEST (dllTraversalTest)
       linkyAddNode (list, index);
     }
 
-  printf ("Linky list traversal (forwards):\r\n");
+  printf ("\r\nLinky list traversal (forwards):\r\n");
 
   /* Traverse list forwards */
   for (tempPtr = list, index = 0; tempPtr; tempPtr = tempPtr->next, index++)
@@ -51,7 +51,7 @@ START_TEST (dllTraversalTest)
   /* Repoint tempPtr to end of list */
   for (tempPtr = list; tempPtr->next; tempPtr = tempPtr->next);
 
-  printf ("Linky list traversal (backwards):\r\n");
+  printf ("\r\nLinky list traversal (backwards):\r\n");
   
   /* Traverse list backwards */
   for (index = 9; tempPtr; tempPtr = tempPtr->prev, index--)

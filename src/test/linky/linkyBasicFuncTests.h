@@ -8,6 +8,9 @@
 #ifndef __LINKY_BASIC_FUNCTIONALITY_TESTS__
 #define __LINKY_BASIC_FUNCTIONALITY_TESTS__
 
+#include <stdio.h>
+#include <linky.h>
+
 /*
  * Author -- Meevs
  * Creation Date -- Sun Dec  5 20:25:47 2021
@@ -21,8 +24,18 @@ START_TEST (linkyListCreation)
 {
   linky *list = NULL;
 
+  printf ("\r\n/* ******************************************************************************** */\r\n"
+	  "/* * Linky List Creation                                                          * */\r\n"
+	  "/* ******************************************************************************** */\r\n\r\n");
+
+  printf ("Creating Linky list with element: 10\r\n");
+  
   linkyAddNode (list, 10);
 
+  printf ("Checking data stored in Linky node:\r\n");
+  printf ("\tExpected data: 10, Actual data: %d\r\n", *(int *)list->data);
+  printf ("\tExpected size: 1, Actual size: %d\r\n", list->size);
+  
   ck_assert (*(int *)list->data == 10);
   ck_assert (list->size == 1);
 
@@ -43,8 +56,14 @@ START_TEST (linkyGetDataTest)
 {
   linky *list = NULL;
 
-  linkyAddNode (list, 5);
+  printf ("\r\n/* ******************************************************************************** */\r\n"
+	  "/* * Linky Get Data Test                                                          * */\r\n"
+	  "/* ******************************************************************************** */\r\n\r\n");
 
+  printf ("Creating Linky list with element: 5\r\n"); 
+  linkyAddNode (list, 5);
+  
+  printf ("Expected data: 5, Actual data: %d\r\n", linkyGetData (list, int));
   ck_assert (linkyGetData (list, int) == 5);
   
   linkyDestroyList (list);
@@ -63,16 +82,29 @@ END_TEST
 START_TEST (basicCharList)
 {
   linky *charList = NULL;
+  linky *tempPtr = NULL;
+  const char elements [] = {'a', 'b', 'c', '\0'};
+  int index = 0;
 
-  /* Init basic char list */
-  linkyAddNode (charList, 'a');  
-  linkyAddNode (charList, 'b');    
-  linkyAddNode (charList, 'c');
+  printf ("\r\n/* ******************************************************************************** */\r\n"
+	  "/* * Basic Char List                                                              * */\r\n"
+	  "/* ******************************************************************************** */\r\n\r\n");
 
-  /* Check for the all of the right values */
-  ck_assert (linkyGetData (charList, char) == 'a');
-  ck_assert (linkyGetData (charList->next, char) == 'b');
-  ck_assert (linkyGetData (charList->next->next, char) == 'c');
+  printf ("Init Linky char list:\r\n");
+
+  for (index = 0; elements [index]; index++)
+    {
+      printf ("\tAdding char: %c\r\n", elements [index]);
+      linkyAddNode (charList, elements [index]);
+    }
+  
+  printf ("Char List traversal:\r\n");
+
+  for (tempPtr = charList, index = 0; tempPtr; tempPtr = tempPtr->next, index++)
+    {
+      printf ("\tExpected value: %c, Actual value: %c\r\n", elements [index], linkyGetData (tempPtr, char));
+      ck_assert (linkyGetData (tempPtr, char) == elements [index]);
+    }
 
   linkyDestroyList (charList);
 }
@@ -90,15 +122,30 @@ END_TEST
 START_TEST (basicShortList)
 {
   linky *shortList = NULL;
+  linky *tempPtr = NULL;
+  const short elements [] = {5, 10, 15, 0};
+  int index = 0;
 
-  linkyAddNode (shortList, (short)5);
-  linkyAddNode (shortList, (short)15);
-  linkyAddNode (shortList, (short)10);
+  printf ("\r\n/* ******************************************************************************** */\r\n"
+	  "/* * Basic Short List                                                             * */\r\n"
+	  "/* ******************************************************************************** */\r\n\r\n");
 
-  ck_assert (linkyGetData (shortList, short) == (short)5);
-  ck_assert (linkyGetData (shortList->next, short) == (short)15);
-  ck_assert (linkyGetData (shortList->next->next, short) == (short)10);
+  printf ("Init Linky short list:\r\n");
+
+  for (index = 0; elements [index]; index++)
+    {
+      printf ("\tAdding short: %hd\r\n", elements [index]);
+      linkyAddNode (shortList, elements [index]);
+    }
   
+  printf ("Short List traversal:\r\n");
+
+  for (tempPtr = shortList, index = 0; tempPtr; tempPtr = tempPtr->next, index++)
+    {
+      printf ("\tExpected value: %hd, Actual value: %hd\r\n", elements [index], linkyGetData (tempPtr, short));
+      ck_assert (linkyGetData (tempPtr, short) == elements [index]);
+    }
+
   linkyDestroyList (shortList);
 }
 END_TEST
@@ -115,15 +162,30 @@ END_TEST
 START_TEST (basicIntList)
 {
   linky *intList = NULL;
+  linky *tempPtr = NULL;
+  const int elements [] = {5, 10, 15, 0};
+  int index = 0;
 
-  linkyAddNode (intList, 5);
-  linkyAddNode (intList, 15);
-  linkyAddNode (intList, 10);
+  printf ("\r\n/* ******************************************************************************** */\r\n"
+	  "/* * Basic Int List                                                               * */\r\n"
+	  "/* ******************************************************************************** */\r\n\r\n");
 
-  ck_assert (linkyGetData (intList, int) == 5);
-  ck_assert (linkyGetData (intList->next, int) == 15);
-  ck_assert (linkyGetData (intList->next->next, int) == 10);
+  printf ("Init Linky int list:\r\n");
+
+  for (index = 0; elements [index]; index++)
+    {
+      printf ("\tAdding int: %d\r\n", elements [index]);
+      linkyAddNode (intList, elements [index]);
+    }
   
+  printf ("Int List traversal:\r\n");
+
+  for (tempPtr = intList, index = 0; tempPtr; tempPtr = tempPtr->next, index++)
+    {
+      printf ("\tExpected value: %d, Actual value: %d\r\n", elements [index], linkyGetData (tempPtr, int));
+      ck_assert (linkyGetData (tempPtr, int) == elements [index]);
+    }
+
   linkyDestroyList (intList);
 }
 END_TEST
@@ -140,15 +202,30 @@ END_TEST
 START_TEST (basicLongList)
 {
   linky *longList = NULL;
+  linky *tempPtr = NULL;
+  const long elements [] = {5, 10, 15, 0};
+  long index = 0;
 
-  linkyAddNode (longList, (long)5);
-  linkyAddNode (longList, (long)15);
-  linkyAddNode (longList, (long)10);
+  printf ("\r\n/* ******************************************************************************** */\r\n"
+	  "/* * Basic Long List                                                              * */\r\n"
+	  "/* ******************************************************************************** */\r\n\r\n");
 
-  ck_assert (linkyGetData (longList, long) == 5);
-  ck_assert (linkyGetData (longList->next, long) == 15);
-  ck_assert (linkyGetData (longList->next->next, long) == 10);
+  printf ("Init Linky long list:\r\n");
+
+  for (index = 0; elements [index]; index++)
+    {
+      printf ("\tAdding long: %ld\r\n", elements [index]);
+      linkyAddNode (longList, elements [index]);
+    }
   
+  printf ("Long List traversal:\r\n");
+
+  for (tempPtr = longList, index = 0; tempPtr; tempPtr = tempPtr->next, index++)
+    {
+      printf ("\tExpected value: %ld, Actual value: %ld\r\n", elements [index], linkyGetData (tempPtr, long));
+      ck_assert (linkyGetData (tempPtr, long) == elements [index]);
+    }
+
   linkyDestroyList (longList);
 }
 END_TEST
@@ -164,21 +241,32 @@ END_TEST
  */
 START_TEST (basicPtrList)
 {
-  char *str1 = "Hello";
-  char *str2 = " ";
-  char *str3 = "World!";
+  linky *longList = NULL;
+  linky *tempPtr = NULL;
+  const char *elements [] = {"Hello", " ", "World", NULL};
+  long index = 0;
 
-  linky *strList = NULL;
+  printf ("\r\n/* ******************************************************************************** */\r\n"
+	   "/* * Basic Ptr List                                                               * */\r\n"
+	   "/* ******************************************************************************** */\r\n\r\n");
 
-  linkyAddNode (strList, str1);
-  linkyAddNode (strList, str2);
-  linkyAddNode (strList, str3);
+  printf ("Init Linky string list:\r\n");
 
-  ck_assert_str_eq (linkyGetData (strList, char *), str1);
-  ck_assert_str_eq (linkyGetData (strList->next, char *), str2);
-  ck_assert_str_eq (linkyGetData (strList->next, char *), str2);
+  for (index = 0; elements [index]; index++)
+    {
+      printf ("\tAdding : \"%s\"\r\n", elements [index]);
+      linkyAddNode (longList, elements [index]);
+    }
   
-  linkyDestroyList (strList);
+  printf ("String List traversal:\r\n");
+
+  for (tempPtr = longList, index = 0; tempPtr; tempPtr = tempPtr->next, index++)
+    {
+      printf ("\tExpected value: \"%s\", Actual value: \"%s\"\r\n", elements [index], linkyGetData (tempPtr, char *));
+      ck_assert (strncmp (linkyGetData (tempPtr, char*), elements [index], 5) == 0);
+    }
+
+  linkyDestroyList (longList);
 }
 END_TEST
 
@@ -196,6 +284,12 @@ START_TEST (removeElementTest)
 {
   linky *list = NULL;
 
+  printf ("\r\n/* ******************************************************************************** */\r\n"
+	  "/* * Remove Element Test                                                          * */\r\n"
+	  "/* ******************************************************************************** */\r\n\r\n");
+
+  printf ("This test is currently a STUB!\r\n");
+  
   /* <<TODO>> -- This test is currently a stub! */
   
   linkyDestroyList (list);
