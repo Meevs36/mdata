@@ -16,6 +16,7 @@
 
 Suite *genLinkyTestSuite ();
 TCase *genBasicTestCase ();
+TCase *genDLLTestCase ();
 
 
 #endif
