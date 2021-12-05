@@ -17,3 +17,8 @@ target_include_directories (mdataLinkyTest
 target_link_libraries (mdataLinkyTest
   check
   )
+
+target_compile_options (mdataLinkyTest
+  PRIVATE
+  -g
+  )

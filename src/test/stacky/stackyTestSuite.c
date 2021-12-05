@@ -5,7 +5,6 @@
  * Notes -- 
  */
 
-#include <stdio.h>
 #include "stackyTestSuite.h"
 
 int main (int argC, char **argV)
@@ -26,6 +25,15 @@ int main (int argC, char **argV)
   return (numberFailed == 0)? 0 : 1;
 }
 
+/*
+ * Author -- Meevs
+ * Creation Date -- Sun Dec  5 01:39:06 2021
+ * Function Name -- genStackyTestSuite 
+ * Function Purpose -- Generates the Stacky test suite, populating it with all test cases to be run
+ * Function Parameters -- 
+ * Function Returns -- The generated test suite
+ * Notes --
+ */
 Suite *genStackyTestSuite ()
 {
   Suite *suite = NULL;
@@ -39,11 +47,26 @@ Suite *genStackyTestSuite ()
   return suite;
 }
 
+/*
+ * Author -- Meevs
+ * Creation Date -- Sun Dec  5 01:40:18 2021
+ * Function Name -- genBasicTestCase 
+ * Function Purpose -- Generates a test case for testing basic functionality of the stack. These tests include basic push/pop operations along with testing whether or not the 'isEmpty' function works as expected
+ * Function Parameters -- 
+ * Function Returns -- A basic test case for use with the stacky test suite
+ * Notes --
+ */
 TCase *genBasicTestCase ()
 {
   TCase *basicTestCase = NULL;
 
   basicTestCase = tcase_create ("basicFunc");
+  tcase_add_test (basicTestCase, stackyInitTest);
+  tcase_add_test (basicTestCase, stackyCharTest);
+  tcase_add_test (basicTestCase, stackyShortTest);
+  tcase_add_test (basicTestCase, stackyIntTest);
+  tcase_add_test (basicTestCase, stackyLongTest);
+  tcase_add_test (basicTestCase, stackyPtrTest);
   tcase_add_test (basicTestCase, simpleStack);
   tcase_add_test (basicTestCase, isEmptyTestEmptyStack);
   tcase_add_test (basicTestCase, isEmptyTestSingleElement);

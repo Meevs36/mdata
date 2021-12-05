@@ -44,10 +44,13 @@ TCase *genBasicTestCase ()
   TCase *basicTestCase = NULL;
 
   basicTestCase = tcase_create ("basicFunc");
+  tcase_add_test (basicTestCase, linkyListCreation);
+  tcase_add_test (basicTestCase, linkyGetDataTest);
   tcase_add_test (basicTestCase, basicCharList);
   tcase_add_test (basicTestCase, basicShortList);
   tcase_add_test (basicTestCase, basicIntList);
-  tcase_add_test (basicTestCase, basicLongList);  
+  tcase_add_test (basicTestCase, basicLongList);
+  tcase_add_test (basicTestCase, removeElementTest);
   
   return basicTestCase;
 }

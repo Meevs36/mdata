@@ -8,6 +8,31 @@
 #ifndef __LINKY_BASIC_FUNCTIONALITY_TESTS__
 #define __LINKY_BASIC_FUNCTIONALITY_TESTS__
 
+START_TEST (linkyListCreation)
+{
+  linky *list = NULL;
+
+  linkyAddNode (list, 10);
+
+  ck_assert (*(int *)list->data == 10);
+  ck_assert (list->size == 1);
+
+  linkyDestroyList (list);
+}
+END_TEST
+
+START_TEST (linkyGetDataTest)
+{
+  linky *list = NULL;
+
+  linkyAddNode (list, 5);
+
+  ck_assert (linkyGetData (list, int) == 5);
+  
+  linkyDestroyList (list);
+}
+END_TEST
+
 START_TEST (basicCharList)
 {
   linky *charList = NULL;
@@ -91,6 +116,16 @@ START_TEST (basicPtrList)
   ck_assert_str_eq (linkyGetData (strList->next, char *), str2);
   
   linkyDestroyList (strList);
+}
+END_TEST
+
+START_TEST (removeElementTest)
+{
+  linky *list = NULL;
+
+  /* <<TODO>> -- This test is currently a stub! */
+  
+  linkyDestroyList (list);
 }
 END_TEST
 

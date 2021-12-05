@@ -5,3 +5,4 @@
 
 add_subdirectory (linky)
 add_subdirectory (stacky)
+add_subdirectory (queue)

@@ -17,3 +17,8 @@ target_include_directories (mdataStackyTest
 target_link_libraries (mdataStackyTest
   check
   )
+
+target_compile_options (mdataStackyTest
+  PRIVATE
+  -g
+  )
