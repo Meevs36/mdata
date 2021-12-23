@@ -19,17 +19,19 @@ struct stacky
 };
 
 
-#define stackyPush(stacky, data)				\
-  _Pragma ("GCC diagnostic push")				\
-  _Pragma ("GCC diagnostic ignored \"-Wint-to-pointer-cast\"")	\
-  _Pragma ("GCC diagnostic ignored \"-Wpointer-to-int-cast\"")	\
-    _Generic (data,						\
-	      char: stackyPushChar (&stacky, (char)data),	\
-	      short: stackyPushShort (&stacky, (short)data),	\
-	      int: stackyPushInt (&stacky, (int)data),		\
-	      long: stackyPushLong (&stacky, (long)data),	\
-	      default: stackyPushBase (&stacky, (void *)data));	\
-  _Pragma ("GCC diagnostic pop")				
+#define stackyPush(stacky, data)					\
+  {									\
+    _Pragma ("GCC diagnostic push")					\
+      _Pragma ("GCC diagnostic ignored \"-Wint-to-pointer-cast\"")	\
+      _Pragma ("GCC diagnostic ignored \"-Wpointer-to-int-cast\"")	\
+      _Generic (data,							\
+		char: stackyPushChar (&stacky, (char)data),		\
+		short: stackyPushShort (&stacky, (short)data),		\
+		int: stackyPushInt (&stacky, (int)data),		\
+		long: stackyPushLong (&stacky, (long)data),		\
+		default: stackyPushBase (&stacky, (void *)data));	\
+    _Pragma ("GCC diagnostic pop")					\
+      }
 
 #define stackyPop(stacky, type) (*(type *)stackyPopData (&stacky))
 #define stackyPeak(stacky, type) (*(type *)stacky->data)

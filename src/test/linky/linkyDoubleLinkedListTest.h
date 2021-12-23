@@ -26,40 +26,21 @@ START_TEST (dllTraversalTest)
   linky *tempPtr = NULL;
   int index = 0;
 
-  printf ("\r\n/* ******************************************************************************** */\r\n"
-	  "/* * Double Linked List Traversal Test                                              */\r\n"
-	  "/* ******************************************************************************** */\r\n\r\n");
-
-  printf ("Init Linky list:\r\n");
-  
   /* Init List */
   for (index = 0; index < 10; index++)
-    {
-      printf ("\tAdding element: %d to list\r\n", index);
-      linkyAddNode (list, index);
-    }
-
-  printf ("\r\nLinky list traversal (forwards):\r\n");
+    linkyAddNode (list, index);
 
   /* Traverse list forwards */
   for (tempPtr = list, index = 0; tempPtr; tempPtr = tempPtr->next, index++)
-    {
-      printf ("\tExpected: %d, Actual: %d\r\n", index, linkyGetData (tempPtr, int));
-      ck_assert (linkyGetData (tempPtr, int) == index);
-    }
+    ck_assert_int_eq (linkyGetData (tempPtr, int), index);
   
   /* Repoint tempPtr to end of list */
   for (tempPtr = list; tempPtr->next; tempPtr = tempPtr->next);
 
-  printf ("\r\nLinky list traversal (backwards):\r\n");
-  
   /* Traverse list backwards */
   for (index = 9; tempPtr; tempPtr = tempPtr->prev, index--)
-    {
-      printf ("\tExpected: %d, Actual: %d\r\n", index, linkyGetData (tempPtr, int));
-      ck_assert (linkyGetData (tempPtr, int) == index);
-    }
-  
+    ck_assert_int_eq (linkyGetData (tempPtr, int), index);
+
   linkyDestroyList (list);
 }
 END_TEST
