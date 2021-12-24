@@ -35,15 +35,18 @@ struct queue
       }
 
 #define queueGetSize(queue) queue->size
-#define queueDequeue(queue, type) (type)0 /* <<STUB>> */
-#define queueFront(queue, type) (*((type *) queue->data))
-#define queueRear(queue, type) (type)0 /* <<STUB>> */
+#define queueDequeue(queue, type) *(type*)queueDequeueBase (&queue)
+#define queueFront(queue, type) *(type*)queue->data
+#define queueRear(queue, type) *(type*)queueGetRear (&queue)
 
-struct queue *queueEnqueueChar (struct queue **queue, char data);
-struct queue *queueEnqueueShort (struct queue **queue, short data);
-struct queue *queueEnqueueInt (struct queue **queue, int data);
-struct queue *queueEnqueueLong (struct queue **queue, long data);
-struct queue *queueEnqueuePtr (struct queue **queue, void *data);
+void queueInitNode (struct queue **queue, void *dataPtr);
+void *queueDequeueBase (struct queue **queue);
+void *queueGetRear (struct queue **queue);
+void queueEnqueueChar (struct queue **queue, char data);
+void queueEnqueueShort (struct queue **queue, short data);
+void queueEnqueueInt (struct queue **queue, int data);
+void queueEnqueueLong (struct queue **queue, long data);
+void queueEnqueuePtr (struct queue **queue, void *data);
 void queueDestroyQueue (struct queue *queue);
 
 #endif

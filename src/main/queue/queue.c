@@ -9,40 +9,115 @@
 
 /*
  * Author -- Meevs
- * Creation Date -- Sat Jul 31 18:23:03 2021
- * Function Name -- queueEnqueueChar 
- * Function Purpose -- Enqueues a char node to the given queue
+ * Creation Date -- Wed Dec 22 08:30:10 2021
+ * Function Name -- queueInitNode 
+ * Function Purpose -- Initializes a queue node at the end of the given queue, or initializes a queue with one element if the given queue is NULL
  * Function Parameters -- 
- * Function Returns -- The queue that the char was enqueueed to
+ *     -- struct queue *queue -- The queue which the new node will be appended to.
+ *     -- void *dataPtr -- A void pointer to the data that will be held by this node.
+ * Function Returns -- void
  * Notes --
  */
-struct queue *queueEnqueueChar (struct queue **queue, char data)
+void queueInitNode (struct queue **queue, void *dataPtr)
 {
+  struct queue *newNode = NULL;
   struct queue *tempPtr = NULL;
   
+  /* Ensure we were given a valid address to work with */
+  if (queue)
+    /* Attempt to initialize a queue node */
+    if (newNode = calloc (1, sizeof (struct queue)))
+      {
+	newNode->data = dataPtr;
+	newNode->size = 1;
+	
+	/* If the address is non-NULL, we must have a pre-initialized queue */
+	if (*queue)
+	  {
+	    /* Traverse to the end of the queue */
+	    for (tempPtr = *queue; tempPtr && tempPtr->next; tempPtr = tempPtr->next)
+	      tempPtr->size++;
+	    
+	    /* Append the new node to the end of the queue */
+	    tempPtr->next = newNode;	    
+	  }
+	else /* Otherwise, the newly initialized node will be the beginning of the queue */
+	  *queue = newNode;
+      }
+}
+
+/*
+ * Author -- Meevs
+ * Creation Date -- Wed Dec 22 09:25:35 2021
+ * Function Name -- queueDequeueBase 
+ * Function Purpose -- Dequeues the next element from the given queue.
+ * Function Parameters -- 
+ *     -- struct queue **queue -- The queue who's element will be dequeued
+ * Function Returns -- The data held by the dequeued node
+ * Notes --
+ *     -- 2021-12-23 -- The data returned is stored in a void *, and should be casted to the desired data type
+ */
+void *queueDequeueBase (struct queue **queue)
+{
+  struct queue *tempPtr = NULL;
+  void *data = NULL;
+
+  /* Ensure we were given a valid address and that address contains a queue */
+  if (queue && *queue)
+    {
+      tempPtr = *queue;
+      *queue = (*queue)->next;
+
+      data = tempPtr->data;
+      free (tempPtr);
+    }
+
+  return data;
+}
+
+/*
+ * Author -- Meevs
+ * Creation Date -- Fri Dec 24 02:20:56 2021
+ * Function Name -- queueGetRear 
+ * Function Purpose -- Gets the pointer of the last node in the queue
+ * Function Parameters -- 
+ * Function Returns -- A void * to the data value of the last node in the queue
+ * Notes --
+ */
+void *queueGetRear (struct queue **queue)
+{
+  struct queue *tempPtr = NULL;
+  void *dataPtr = NULL;
+
   if (queue)
     {
       /* Traverse to the end of the queue */
       for (tempPtr = *queue; tempPtr && tempPtr->next; tempPtr = tempPtr->next);
-
-      /* Allocate space for the queue data structure */
-      tempPtr->next = calloc (1, sizeof (queue));
-      /* Ensure that the allocation for the queue was successful */
-      if (tempPtr->next)
-	{
-	  /* Allocate memory for the data of the queue */
-	  tempPtr->next->data = calloc (1, sizeof (char *));
-	  /* Ensure that the allocation for the data was successful */
-	  if (tempPtr->next->data)
-	    *(char *)(tempPtr->next->data) = data;
-	  else /* If the allocation failed, we shall free up the un-populated queue node */
-	    free (tempPtr->next);
-	}
-      
-      tempPtr = *queue;
+      dataPtr = tempPtr->data;
     }
   
-  return tempPtr;
+  return dataPtr;
+}
+
+/*
+ * Author -- Meevs
+ * Creation Date -- Sat Jul 31 18:23:03 2021
+ * Function Name -- queueEnqueueChar 
+ * Function Purpose -- Enqueues a char node to the given queue
+ * Function Parameters -- 
+ * Function Returns -- void 
+ * Notes --
+ */
+void queueEnqueueChar (struct queue **queue, char data)
+{
+  char *dataPtr = NULL;
+  
+  if (queue)
+    if (dataPtr = (char *)calloc (1, sizeof (char)))
+      {
+	*dataPtr = data;
+	queueInitNode (queue, (void *)dataPtr);
+      }
 }
 
 /*
@@ -51,16 +126,19 @@ struct queue *queueEnqueueChar (struct queue **queue, char data)
  * Function Name -- queueEnqueueShort 
  * Function Purpose -- Enqueues a short node to the given queue
  * Function Parameters -- 
- * Function Returns -- The queue that the short was enqueueed to
+ * Function Returns -- void 
  * Notes --
  */
-struct queue *queueEnqueueShort (struct queue **queue, short data)
+void queueEnqueueShort (struct queue **queue, short data)
 {
-  struct queue *tempPtr = NULL;
-  
+  short *dataPtr = NULL;
 
-  
-  return tempPtr;
+  if (queue)
+    if (dataPtr = (short *)calloc (1, sizeof (short)))
+    {
+      *dataPtr = data;
+      queueInitNode (queue, (void *)dataPtr);
+    }
 }
 
 /*
@@ -69,14 +147,19 @@ struct queue *queueEnqueueShort (struct queue **queue, short data)
  * Function Name -- queueEnqueueInt 
  * Function Purpose -- Enqueues an int node to the given queue
  * Function Parameters -- 
- * Function Returns -- The queue that the int was enqueueed to
+ * Function Returns -- void
  * Notes --
  */
-struct queue *queueEnqueueInt (struct queue **queue, int data)
+void queueEnqueueInt (struct queue **queue, int data)
 {
-  struct queue *tempPtr = NULL;
+  int *dataPtr = NULL;
 
-  return tempPtr;
+  if (queue)
+    if (dataPtr = (int *)calloc (1, sizeof (int)))
+      {
+	*dataPtr = data;
+	queueInitNode (queue, (void *)dataPtr);
+      }
 }
 
 /*
@@ -85,15 +168,19 @@ struct queue *queueEnqueueInt (struct queue **queue, int data)
  * Function Name -- queueEnqueueLong 
  * Function Purpose -- Enqueues a long node to the given queue
  * Function Parameters -- 
- * Function Returns -- The queue that the long was enqueueed to
+ * Function Returns -- void
  * Notes --
  */
-struct queue *queueEnqueueLong (struct queue **queue, long data)
+void queueEnqueueLong (struct queue **queue, long data)
 {
-  struct queue *tempPtr = NULL;
+  long *dataPtr = NULL;
 
-  
-  return tempPtr;
+  if (queue)
+    if (dataPtr = (long *)calloc (1, sizeof (long)))
+      {
+	*dataPtr = data;
+	queueInitNode (queue, (void *)dataPtr);
+      }
 }
 
 /*
@@ -102,14 +189,19 @@ struct queue *queueEnqueueLong (struct queue **queue, long data)
  * Function Name -- queueEnqueuePtr
  * Function Purpose -- Enqueues the given pointer to the given queue
  * Function Parameters -- 
- * Function Returns -- The queue that the pointer was enqueueed to
+ * Function Returns -- void
  * Notes --
  */
-struct queue *queueEnqueuePtr (struct queue **queue, void *data)
+void queueEnqueuePtr (struct queue **queue, void *data)
 {
-  struct queue *tempPtr = NULL;
+  void **dataPtr = NULL;
 
-  return tempPtr;
+  if (queue)
+    if (dataPtr = (void *)calloc (1, sizeof (void *)))
+      {
+	*dataPtr = data;
+	queueInitNode (queue, dataPtr);
+      }
 }
 
 /*
@@ -125,3 +217,5 @@ void queueDestroyQueue (struct queue *queue)
 {
   
 }
+
+ 

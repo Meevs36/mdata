@@ -13,29 +13,45 @@
 /*
  * Author -- Meevs
  * Creation Date -- Sun Dec 19 06:08:14 2021
- * Function Name -- initQueueTest
+ * Function Name -- initQueueTest0
  * Function Purpose -- Tests the basic initialization of a queue
  * Function Parameters -- 
  * Function Returns -- void
  * Notes --
  */
-START_TEST (initQueueTest)
+START_TEST (initQueueTest0)
 {
   queue *queue = NULL;
 
-  printf ("\r\n/* ******************************************************************************** */\r\n"
-	  "/* * Queue Initialization Test                                                    * */\r\n"
-	  "/* ******************************************************************************** */\r\n"
-	  "Initializing Queue with value: 'a'\r\n");
-  
-  queueEnqueue (queue, 'a');
+  queueInitNode (&queue, NULL);
+  ck_assert_ptr_ne (queue, NULL);
+  free (queue);
+}
+END_TEST
 
-  printf ("Ensuring queue was successfully initialized\r\n");
-  ck_assert (queue != NULL);
-  printf ("Expected value: a, Actual value: %c\r\n", *(char *)(queue->data));
-  ck_assert (*(char *)(queue->data) == 'a');
+/*
+ * Author -- Meevs
+ * Creation Date -- Fri Dec 24 01:00:53 2021
+ * Function Name -- initQueueTest1 
+ * Function Purpose -- Tests the basic initialization of a queue with a given data value
+ * Function Parameters -- 
+ * Function Returns -- void
+ * Notes --
+ */
+START_TEST (initQueueTest1)
+{
+  struct queue *queue = NULL;
+  int *dataPtr = (int *)calloc (1, sizeof (int));
 
-  queueDestroyQueue (queue);
+  ck_assert_ptr_ne (dataPtr, NULL);
+  *dataPtr = 10;
+  queueInitNode (&queue, (void *)dataPtr);
+
+  ck_assert_ptr_ne (queue, NULL);
+  ck_assert_int_eq (*(int *)queue->data, 10);
+
+  free (queue->data);
+  free (queue);  
 }
 END_TEST
 
@@ -51,19 +67,16 @@ END_TEST
 START_TEST (queueGetSizeTest0)
 {
   queue *queue = NULL;
+  char *dataPtr = (char *)calloc (1, sizeof (char *));
 
-  printf ("\r\n/* ******************************************************************************** */\r\n"
-	  "/* * Queue Get Size Test 0                                                        * */\r\n"
-	  "/* ******************************************************************************** */\r\n"
-	  "Initializing Queue with value: 'a'\r\n");
+  ck_assert_ptr_ne (dataPtr, NULL);
+  *dataPtr = 'a';  
+  queueInitNode (&queue, (void *)dataPtr);
+  ck_assert_ptr_ne (queue, NULL);
+  ck_assert_int_eq (queueGetSize (queue), 1);
 
-  queueEnqueue (queue, 'a');
-  printf ("Ensuring queue was successfully initialized");
-  ck_assert (queue != NULL);
-  printf ("Expected size: 1, Actual size: %d\r\n", queueGetSize (queue));
-  ck_assert (queueGetSize (queue) == 1);
-
-  queueDestroyQueue (queue);
+  free (queue->data);
+  free (queue);
 }
 END_TEST
 
@@ -78,27 +91,29 @@ END_TEST
  */
 START_TEST (queueGetSizeTest1)
 {
-  queue *queue = NULL;
-  const char elements [] = {'a', 'b', 'c', '\0'};
+  struct queue *queue = NULL;
+  struct queue *tempPtr = NULL;
+  const char elements [] = {'a', 'b', 'c', '\0'};  
+  char *charPtr = NULL;
   int index = 0;
-  
-  printf ("\r\n/* ******************************************************************************** */\r\n"
-	  "/* * Queue Get Size Test 1                                                        * */\r\n"
-	  "/* ******************************************************************************** */\r\n"
-	  "Initializing Queue:\r\n");
 
   for (index = 0; elements [index]; index++)
     {
-      printf ("\tEnqueueing value: '%c'\r\n", elements [index]);
-      queueEnqueue (queue, elements [index]);
+      charPtr = (char *)calloc (1, sizeof (char));
+      ck_assert_ptr_ne (charPtr, NULL);
+      *charPtr = elements [index];
+
+      queueInitNode (&queue, (void *)charPtr);
     }
 
-  printf ("Ensuring queue was successfully initialized\r\n");
-  ck_assert (queue != NULL);
-  printf ("Expected value: %d, Actual value: %d\r\n", index - 1, queueGetSize (queue));
-  ck_assert (queueGetSize (queue) == index - 1);
+  ck_assert_ptr_ne (queue, NULL);
+  ck_assert_int_eq (queueGetSize (queue), index - 1);
 
-  queueDestroyQueue (queue);
+  for (tempPtr = queue; tempPtr; tempPtr = tempPtr->next)
+    {
+      free (tempPtr->data);
+      free (tempPtr);
+    }
 }
 END_TEST
 
@@ -113,21 +128,18 @@ END_TEST
  */
 START_TEST (queueFrontTest0)
 {
-  queue *queue = NULL;
+  struct queue *queue = NULL;
+  char *dataPtr = (char *)calloc (1, sizeof (char));
 
-  printf ("\r\n/* ******************************************************************************** */\r\n"
-	  "/* * Queue Front Test 0                                                           * */\r\n"
-	  "/* ******************************************************************************** */\r\n"
-	  "Initializing Queue with value: 'a'\r\n");
+  ck_assert_ptr_ne (dataPtr, NULL);
+  *dataPtr = 'a';
+  queueInitNode (&queue, dataPtr);
   
-  queueEnqueue (queue, 'a');
-
-  printf ("Ensuring queue was successfully initialized\r\n");
-  ck_assert (queue != NULL);
-  printf ("Expected value: 'a', Actual value: '%c'\r\n", queueFront (queue, char));
-  ck_assert (queueFront (queue, char) == 'a');
+  ck_assert_ptr_ne (queue, NULL);
+  ck_assert_int_eq (queueFront (queue, char), 'a');
   
-  queueDestroyQueue (queue);
+  free (queue->data);
+  free (queue);
 }
 END_TEST
 
@@ -142,28 +154,30 @@ END_TEST
  */
 START_TEST (queueFrontTest1)
 {
-  queue *queue = NULL;
+  struct queue *queue = NULL;
+  struct queue *tempPtr = NULL;
   const char elements [] = {'a', 'b', 'c', '\0'};
+  char *dataPtr = NULL;
   int index = 0;
-
-  printf ("\r\n/* ******************************************************************************** */\r\n"
-	  "/* * Queue Front Test 1                                                           * */\r\n"
-	  "/* ******************************************************************************** */\r\n"
-	  "Initializing Queue\r\n");
 
   for (index = 0; elements [index]; index++)
     {
-      printf ("\tAdding value: '%c'\r\n", elements [index]);
-      queueEnqueue (queue, elements [index]);
+      dataPtr = (char *)calloc (1, sizeof (char));
+      ck_assert_ptr_ne (dataPtr, NULL);
+
+      *dataPtr = elements [index];
+      
+      queueInitNode (&queue, dataPtr);
     }
 
-  printf ("Ensuring queue was successfully initialized\r\n");
-  ck_assert (queue != NULL);
+  ck_assert_ptr_ne (queue, NULL);
+  ck_assert_int_eq (queueFront (queue, char), 'a');
   
-  printf ("Expected value: 'a', Actual value: '%c'\r\n", queueFront (queue, char));
-  ck_assert (queueFront (queue, char) == 'a');
-  
-  queueDestroyQueue (queue);
+  for (tempPtr = queue; tempPtr; tempPtr = tempPtr->next)
+    {
+      free (tempPtr->data);
+      free (tempPtr);
+    }
 }
 END_TEST
 
@@ -178,21 +192,19 @@ END_TEST
  */
 START_TEST (queueRearTest0)
 {
-  queue *queue = NULL;
+  struct queue *queue = NULL;
+  char *dataPtr = (char *)calloc (1, sizeof (char));
 
-  printf ("\r\n/* ******************************************************************************** */\r\n"
-	  "/* * Queue Rear Test 0                                                            * */\r\n"
-	  "/* ******************************************************************************** */\r\n"
-	  "Initializing Queue with value: 'a'\r\n");
-  
-  queueEnqueue (queue, 'a');
+  ck_assert_ptr_ne (dataPtr, NULL);
+  *dataPtr = 'a';
 
-  printf ("Ensuring queue was successfully initialized\r\n");
-  ck_assert (queue != NULL);
-  printf ("Expected value: 'a', Actual value: '%c'\r\n", queueRear (queue, char));
-  ck_assert (queueRear (queue, char) == 'a');
+  queueInitNode (&queue, dataPtr);
+
+  ck_assert_ptr_ne (queue, NULL);
+  ck_assert_int_eq (queueRear (queue, char), 'a');
   
-  queueDestroyQueue (queue);
+  free (queue->data);
+  free (queue);
 }
 END_TEST
 
@@ -207,28 +219,52 @@ END_TEST
  */
 START_TEST (queueRearTest1)
 {
-  queue *queue = NULL;
+  struct queue *queue = NULL;
+  struct queue *tempPtr = NULL;
   const char elements [] = {'a', 'b', 'c', '\0'};
+  char *dataPtr = NULL;
   int index = 0;
   
-  printf ("\r\n/* ******************************************************************************** */\r\n"
-	  "/* * Queue Rear Test 1                                                            * */\r\n"
-	  "/* ******************************************************************************** */\r\n"
-	  "Initializing Queue:\r\n");
-
   for (index = 0; elements [index]; index++)
     {
-      printf ("\tEnqueueing value: '%c'\r\n", elements [index]);
-      queueEnqueue (queue, elements [index]);      
+      dataPtr = (char *)calloc (1, sizeof (char));
+      ck_assert_ptr_ne (dataPtr, NULL);
+
+      *dataPtr = elements [index];
+      queueInitNode (&queue, dataPtr);
     }
 
-  printf ("Ensuring queue was successfully initialized\r\n");
-  ck_assert (queue != NULL);
+  ck_assert_ptr_ne (queue, NULL);
+  ck_assert_int_eq (queueRear (queue, char), 'c');
 
-  printf ("Expected value: 'c', Actual value: '%c'\r\n", queueRear (queue, char));
-  ck_assert (queueRear (queue, char) == 'c');
+  for (tempPtr = queue; tempPtr; tempPtr = tempPtr->next)
+    {
+      free (tempPtr->data);
+      free (tempPtr);
+    }
+}
+END_TEST
 
-  queueDestroyQueue (queue);
+/*
+ * Author -- Meevs
+ * Creation Date -- Thu Dec 23 22:05:35 2021
+ * Function Name -- queueDequeueTest 
+ * Function Purpose -- Tests the dequeue macro-function
+ * Function Parameters -- 
+ * Function Returns -- void
+ * Notes --
+ */
+START_TEST (queueDequeueTest)
+{
+  queue *queue = NULL;
+  int *dataPtr = calloc (1, sizeof (int *));
+
+  ck_assert_ptr_ne (dataPtr, NULL);
+  *dataPtr = 20;
+  
+  queueInitNode (&queue, dataPtr);
+  ck_assert_ptr_ne (queue, NULL);  
+  ck_assert_int_eq (queueDequeue (queue, int), 20);
 }
 END_TEST
 
@@ -247,23 +283,13 @@ START_TEST (queueCharTest)
   const char elements [] = {'a', 'b', 'c', '\0'};
   int index = 0;
   
-  printf ("\r\n/* ******************************************************************************** */\r\n"
-	  "/* * Queue Char Test                                                              * */\r\n"
-	  "/* ******************************************************************************** */\r\n"
-	  "Initializing Queue:\r\n");
+  for (index = 0; elements [index]; index++)
+    queueEnqueue (queue, elements [index]);
 
   for (index = 0; elements [index]; index++)
     {
-      printf ("\tAdding value: %c\r\n", elements [index]);
-      queueEnqueue (queue, elements [index]);
-    }
-
-  printf ("Ensuring structure of queue is as expected:\r\n");
-
-  for (index = 0; elements [index]; index++)
-    {
-      printf ("Expected value: %c, Actual value: %c\r\n", elements [index], queueFront (queue, char));
-      ck_assert (queueDequeue (queue, char) == elements [index]);
+      ck_assert_ptr_ne (queue, NULL);
+      ck_assert_int_eq (queueDequeue (queue, char), elements [index]);
     }
   
   queueDestroyQueue (queue);
@@ -285,23 +311,13 @@ START_TEST (queueShortTest)
   const short elements [] = {10, 15, 25, 0};
   int index = 0;
 
-  printf ("\r\n/* ******************************************************************************** */\r\n"
-	  "/* * Queue Simple Short Test                                                      * */\r\n"
-	  "/* ******************************************************************************** */\r\n"
-	  "Initializing Queue queue:\r\n");
+  for (index = 0; elements [index]; index++)
+    queueEnqueue (queue, elements [index]);
 
   for (index = 0; elements [index]; index++)
     {
-      printf ("\tAdding element: %hd\r\n", elements [index]);
-      queueEnqueue (queue, elements [index]);
-    }
-
-  
-  printf ("\r\nConfirming the structure of the stack:\r\n");
-  for (index = 0; elements [index]; index++)
-    {
-      printf ("\tExpected value: %hd, Actual value: %hd\r\n", elements [index], queueFront (queue, short));
-      ck_assert (queueDequeue (queue, short) == elements [index]);
+      ck_assert_ptr_ne (queue, NULL);
+      ck_assert_int_eq (queueDequeue (queue, short), elements [index]);
     }
   
   queueDestroyQueue (queue);
@@ -323,23 +339,13 @@ START_TEST (queueIntTest)
   const int elements [] = {10, 15, 25, 0};
   int index = 0;
 
-  printf ("\r\n/* ******************************************************************************** */\r\n"
-	  "/* * Queue Simple Queue Test                                                      * */\r\n"
-	  "/* ******************************************************************************** */\r\n"
-	  "Initializing Queue queue:\r\n");
+  for (index = 0; elements [index]; index++)
+    queueEnqueue (queue, elements [index]);
 
   for (index = 0; elements [index]; index++)
     {
-      printf ("\tAdding element: %d\r\n", elements [index]);
-      queueEnqueue (queue, elements [index]);
-    }
-
-  
-  printf ("\r\nConfirming the structure of the stack:\r\n");
-  for (index = 0; elements [index]; index++)
-    {
-      printf ("\tExpected value: %d, Actual value: %d\r\n", elements [index], queueFront (queue, int));
-      ck_assert (queueDequeue (queue, int) == elements [index]);
+      ck_assert_ptr_ne (queue, NULL);
+      ck_assert_int_eq (queueDequeue (queue, int), elements [index]);
     }
   
   queueDestroyQueue (queue);
@@ -361,25 +367,15 @@ START_TEST (queueLongTest)
   const long elements [] = {10, 15, 25, 0};
   int index = 0;
 
-  printf ("\r\n/* ******************************************************************************** */\r\n"
-	  "/* * Queue Simple Long Test                                                      * */\r\n"
-	  "/* ******************************************************************************** */\r\n"
-	  "Initializing Queue queue:\r\n");
+  for (index = 0; elements [index]; index++)
+    queueEnqueue (queue, elements [index]);
 
   for (index = 0; elements [index]; index++)
     {
-      printf ("\tAdding element: %ld\r\n", elements [index]);
-      queueEnqueue (queue, elements [index]);
+      ck_assert_ptr_ne (queue, NULL);
+      ck_assert_int_eq (queueDequeue (queue, long), elements [index]);
     }
 
-  
-  printf ("\r\nConfirming the structure of the stack:\r\n");
-  for (index = 0; elements [index]; index++)
-    {
-      printf ("\tExpected value: %ld, Actual value: %ld\r\n", elements [index], queueFront (queue, long));
-      ck_assert (queueDequeue (queue, long) == elements [index]);
-    }
-  
   queueDestroyQueue (queue);
 }
 END_TEST

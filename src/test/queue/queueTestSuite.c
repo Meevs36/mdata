@@ -61,13 +61,15 @@ TCase *genBasicTestCase ()
   TCase *basicTestCase = NULL;
 
   basicTestCase = tcase_create ("basicFunc");
-  tcase_add_test (basicTestCase, initQueueTest);
+  tcase_add_test (basicTestCase, initQueueTest0);
+  tcase_add_test (basicTestCase, initQueueTest1);
   tcase_add_test (basicTestCase, queueGetSizeTest0);
   tcase_add_test (basicTestCase, queueGetSizeTest1);
   tcase_add_test (basicTestCase, queueFrontTest0);
   tcase_add_test (basicTestCase, queueFrontTest1);
   tcase_add_test (basicTestCase, queueRearTest0);
   tcase_add_test (basicTestCase, queueRearTest1);
+  tcase_add_test (basicTestCase, queueDequeueTest);
   tcase_add_test (basicTestCase, queueCharTest);
   tcase_add_test (basicTestCase, queueShortTest);
   tcase_add_test (basicTestCase, queueIntTest);
