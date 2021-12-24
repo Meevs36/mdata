@@ -32,14 +32,20 @@ START_TEST (dllTraversalTest)
 
   /* Traverse list forwards */
   for (tempPtr = list, index = 0; tempPtr; tempPtr = tempPtr->next, index++)
-    ck_assert_int_eq (linkyGetData (tempPtr, int), index);
+    {
+      ck_assert_ptr_ne (tempPtr, NULL);
+      ck_assert_int_eq (linkyGetData (tempPtr, int), index);
+    }
   
   /* Repoint tempPtr to end of list */
   for (tempPtr = list; tempPtr->next; tempPtr = tempPtr->next);
 
   /* Traverse list backwards */
   for (index = 9; tempPtr; tempPtr = tempPtr->prev, index--)
-    ck_assert_int_eq (linkyGetData (tempPtr, int), index);
+    {
+      ck_assert_ptr_ne (tempPtr, NULL);
+      ck_assert_int_eq (linkyGetData (tempPtr, int), index);
+    }
 
   linkyDestroyList (list);
 }

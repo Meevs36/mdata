@@ -22,10 +22,11 @@
  */
 START_TEST (linkyListCreation)
 {
-  linky *list = NULL;
+  struct linky *list = NULL;
 
   linkyAddNode (list, 10);
-  
+
+  ck_assert_ptr_ne (list, NULL);
   ck_assert_int_eq (*(int *)list->data, 10);
   ck_assert_int_eq (list->size, 1);
 
@@ -47,7 +48,8 @@ START_TEST (linkyGetDataTest)
   linky *list = NULL;
 
   linkyAddNode (list, 5);
-  
+
+  ck_assert_ptr_ne (list, NULL);
   ck_assert_int_eq (linkyGetData (list, int), 5);
   
   linkyDestroyList (list);
@@ -72,9 +74,12 @@ START_TEST (basicCharList)
 
   for (index = 0; elements [index]; index++)
     linkyAddNode (charList, elements [index]);
-
+  
   for (tempPtr = charList, index = 0; tempPtr; tempPtr = tempPtr->next, index++)
-    ck_assert_msg (linkyGetData (tempPtr, char) == elements [index], "Expected char: '%c', instead got char: '%c'\r\n", elements [index], linkyGetData (tempPtr, char));
+    {
+      ck_assert_ptr_ne (charList, NULL);
+      ck_assert_msg (linkyGetData (tempPtr, char) == elements [index], "Expected char: '%c', instead got char: '%c'\r\n", elements [index], linkyGetData (tempPtr, char));
+    }
 
   linkyDestroyList (charList);
 }
@@ -97,10 +102,13 @@ START_TEST (basicShortList)
   int index = 0;
 
   for (index = 0; elements [index]; index++)
-    linkyAddNode (shortList, elements [index]);
-
+    linkyAddNode (shortList, elements [index]);  
+  
   for (tempPtr = shortList, index = 0; tempPtr; tempPtr = tempPtr->next, index++)
-    ck_assert_int_eq (linkyGetData (tempPtr, short), elements [index]);
+    {
+      ck_assert_ptr_ne (shortList, NULL);
+      ck_assert_int_eq (linkyGetData (tempPtr, short), elements [index]);
+    }
 
   linkyDestroyList (shortList);
 }
@@ -124,9 +132,12 @@ START_TEST (basicIntList)
 
   for (index = 0; elements [index]; index++)
     linkyAddNode (intList, elements [index]);
-
+  
   for (tempPtr = intList, index = 0; tempPtr; tempPtr = tempPtr->next, index++)
-    ck_assert_int_eq (linkyGetData (tempPtr, int), elements [index]);
+    {
+      ck_assert_ptr_ne (intList, NULL);
+      ck_assert_int_eq (linkyGetData (tempPtr, int), elements [index]);
+    }
 
   linkyDestroyList (intList);
 }
@@ -152,7 +163,10 @@ START_TEST (basicLongList)
     linkyAddNode (longList, elements [index]);
 
   for (tempPtr = longList, index = 0; tempPtr; tempPtr = tempPtr->next, index++)
-    ck_assert_int_eq (linkyGetData (tempPtr, long), elements [index]);
+    {
+      ck_assert_ptr_ne (longList, NULL);
+      ck_assert_int_eq (linkyGetData (tempPtr, long), elements [index]);
+    }
 
   linkyDestroyList (longList);
 }
@@ -173,11 +187,15 @@ START_TEST (basicPtrList)
   linky *tempPtr = NULL;
   const char *elements [] = {"Hello", " ", "World", NULL};
   long index = 0;
+  
   for (index = 0; elements [index]; index++)
-      linkyAddNode (strList, elements [index]);
+      linkyAddNode (strList, elements [index]);  
   
   for (tempPtr = strList, index = 0; tempPtr; tempPtr = tempPtr->next, index++)
-    ck_assert_str_eq (linkyGetData (tempPtr, char *), elements [index]);
+    {
+      ck_assert_ptr_ne (strList, NULL);
+      ck_assert_str_eq (linkyGetData (tempPtr, char *), elements [index]);
+    }
 
   linkyDestroyList (strList);
 }

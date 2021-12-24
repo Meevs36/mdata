@@ -27,6 +27,7 @@ START_TEST (stackyInitTest)
 
   stackyPush (stack, 10);
 
+  ck_assert_ptr_ne (stack, NULL);
   ck_assert_int_eq (*(int *)stack->data, 10);
   
   stackyDestroyStack (stack);
@@ -47,6 +48,7 @@ START_TEST (simpleStack)
   stacky *stack = NULL;
 
   stackyPush (stack, 10);
+  ck_assert_ptr_ne (stack, NULL);
   ck_assert_int_eq (stackyPop (stack, int), 10);
 
   stackyDestroyStack (stack);
@@ -73,7 +75,10 @@ START_TEST (popTest)
     stackyPush (stack, elements [index]);
 
   for (index = MAX_SIZE - 1; index >= 0; index--)
-    ck_assert_int_eq (stackyPop (stack, int), elements [index]);
+    {
+      ck_assert_ptr_ne (stack, NULL);
+      ck_assert_int_eq (stackyPop (stack, int), elements [index]);
+    }
 
   stackyDestroyStack (stack);
 }
@@ -97,7 +102,7 @@ START_TEST (peakTest)
   for (index = 0; elements [index]; index++)
     {
       stackyPush (stack, elements [index]);
-
+      ck_assert_ptr_ne (stack, NULL);
       ck_assert_int_eq (stackyPeak (stack, int), elements [index]);
     }
 
@@ -121,10 +126,13 @@ START_TEST (stackyCharTest)
   int index = 0;
 
   for (index = 0; elements [index]; index++)
-    stackyPush (stack, elements [index]);
+    stackyPush (stack, elements [index]); 
 
   for (index = index - 1; index >= 0; index--)
-    ck_assert_int_eq (stackyPop (stack, char), elements [index]);
+    {
+      ck_assert_ptr_ne (stack, NULL);
+      ck_assert_int_eq (stackyPop (stack, char), elements [index]);
+    }
   
   stackyDestroyStack (stack);
 }
@@ -149,7 +157,10 @@ START_TEST (stackyShortTest)
     stackyPush (stack, elements [index]);
 
   for (index = index - 1; index >= 0; index--)
-    ck_assert_int_eq (stackyPop (stack, short), elements [index]);
+    {
+      ck_assert_ptr_ne (stack, NULL);
+      ck_assert_int_eq (stackyPop (stack, short), elements [index]);
+    }
   
   stackyDestroyStack (stack);
 }
@@ -174,7 +185,10 @@ START_TEST (stackyIntTest)
       stackyPush (stack, elements [index]);
   
   for (index = index - 1; index >= 0; index--)
-    ck_assert_int_eq (stackyPop (stack, int), elements [index]);
+    {
+      ck_assert_ptr_ne (stack, NULL);
+      ck_assert_int_eq (stackyPop (stack, int), elements [index]);
+    }
 
   stackyDestroyStack (stack);
 }
@@ -197,9 +211,12 @@ START_TEST (stackyLongTest)
 
   for (index = 0; elements [index]; index++)
     stackyPush (stack, elements [index]);
-
+		    
   for (index = index - 1; index >= 0; index--)
-    ck_assert_int_eq (stackyPop (stack, long), elements [index]);
+    {
+      ck_assert_ptr_ne (stack, NULL);
+      ck_assert_int_eq (stackyPop (stack, long), elements [index]);
+    }
 
 
   stackyDestroyStack (stack);
@@ -225,7 +242,10 @@ START_TEST (stackyPtrTest)
     stackyPush (stack, elements [index]);
   
   for (index = index - 1; index >= 0; index--)
-    ck_assert_str_eq (stackyPop (stack, char *), elements [index]);
+    {
+      ck_assert_ptr_ne (stack, NULL);
+      ck_assert_str_eq (stackyPop (stack, char *), elements [index]);
+    }
 
   stackyDestroyStack (stack);
 }
@@ -252,7 +272,10 @@ START_TEST (isEmptyTestEmptyStack)
       stackyPush (stack, elements [index]);
 
   for (; index > 0; index--)
-    stackyPop (stack, int);
+    {
+      ck_assert_ptr_ne (stack, NULL);
+      stackyPop (stack, int);
+    }
   
   ck_assert_int_eq (stackyIsEmpty (stack), 1);
 
@@ -274,7 +297,8 @@ START_TEST (isEmptyTestSingleElement)
   stacky *stack = NULL;
 
   stackyPush (stack, 10);
-  
+
+  ck_assert_ptr_ne (stack, NULL);
   ck_assert_int_eq (stackyIsEmpty (stack), 0);
 
   stackyDestroyStack (stack);
@@ -299,6 +323,7 @@ START_TEST (isEmptyTestMultipleElements)
   for (index = 0; elements [index]; index++)
     stackyPush (stack, elements [index]);
 
+  ck_assert_ptr_ne (stack, NULL);
   ck_assert_int_eq (stackyIsEmpty (stack), 0);
   
   stackyDestroyStack (stack);
