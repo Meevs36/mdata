@@ -15,7 +15,8 @@ target_include_directories (mdata
   ${CMAKE_SOURCE_DIR}/inc/
   ${CMAKE_SOURCE_DIR}/inc/linky/
   ${CMAKE_SOURCE_DIR}/inc/stacky/
-  ${CMAKE_SOURCE_DIR}/inc/queue
+  ${CMAKE_SOURCE_DIR}/inc/queue/
+  ${CMAKE_SOURCE_DIR}/inc/binaryTree/
   )
 target_link_directories (mdata
   PRIVATE

@@ -20,3 +20,4 @@ enable_testing ()
 add_test (NAME linkyTest COMMAND src/test/linky/mdataLinkyTest) # Testing for the Linky module
 add_test (NAME stackyTest COMMAND src/test/stacky/mdataStackyTest) # Testing for the Stacky module
 add_test (NAME queueTest COMMAND src/test/queue/mdataQueueTest) # Testing for the Queue module
+add_test (NAME binaryTreeTest COMMAND src/test/binaryTree/mdataBinaryTreeTest) # Testing for the Binary Tree module
