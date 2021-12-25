@@ -1,11 +1,12 @@
 # Author -- Meevs
 # Creation Date -- Wed Dec  1 05:51:34 2021
 # File Name -- CMakeLists.txt
-# Notes -- 
+# Notes --
+#     -- 2021-12-25 -- Updated to version 0.2.0, implementing the Binary Tree data structure
 
 cmake_minimum_required (VERSION 3.16)
 
-project (mdata VERSION 0.1.0)
+project (mdata VERSION 0.2.0)
 
 add_subdirectory (inc)
 add_subdirectory (src)

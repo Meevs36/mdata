@@ -37,8 +37,13 @@ int main (int argC, char **argV)
 Suite *genBinaryTreeTestSuite ()
 {
   Suite *btTestSuite = NULL;
+  TCase *btBasicTestCase = NULL;
 
-  /* <<STUB>> */
+  btTestSuite = suite_create ("bt");
+
+  btBasicTestCase = genBasicTestCase ();
+
+  suite_add_tcase (btTestSuite, btBasicTestCase);  
   
   return btTestSuite;
 }
@@ -56,7 +61,23 @@ TCase *genBasicTestCase ()
 {
   TCase *btBasicTestCase = NULL;
 
-  /* <<STUB>> */
+  btBasicTestCase = tcase_create ("basicFunc");
+  tcase_add_test (btBasicTestCase, btDefaultCmpFuncTestChar);
+  tcase_add_test (btBasicTestCase, btDefaultCmpFuncTestShort);
+  tcase_add_test (btBasicTestCase, btDefaultCmpFuncTestInt);
+  tcase_add_test (btBasicTestCase, btDefaultCmpFuncTestLong);
+  tcase_add_test (btBasicTestCase, btDefaultCmpNULLTreeTest0);
+  tcase_add_test (btBasicTestCase, btDefaultCmpNULLTreeTest1);
+  tcase_add_test (btBasicTestCase, btInsertNodeTest0);
+  tcase_add_test (btBasicTestCase, btInsertNodeTest1);
+  tcase_add_test (btBasicTestCase, btInitTest);
+  tcase_add_test (btBasicTestCase, btGetSizeTest0);
+  tcase_add_test (btBasicTestCase, btGetSizeTest1);
+  tcase_add_test (btBasicTestCase, btCharTest);
+  tcase_add_test (btBasicTestCase, btShortTest);
+  tcase_add_test (btBasicTestCase, btIntTest);
+  tcase_add_test (btBasicTestCase, btLongTest);
+  
 
   return btBasicTestCase;
 }
