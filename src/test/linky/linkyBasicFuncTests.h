@@ -27,7 +27,7 @@ START_TEST (linkyListCreation)
   linkyAddNode (list, 10);
 
   ck_assert_ptr_ne (list, NULL);
-  ck_assert_int_eq (*(int *)list->data, 10);
+  ck_assert_int_eq (list->data.i, 10);
   ck_assert_int_eq (list->size, 1);
 
   linkyDestroyList (list);

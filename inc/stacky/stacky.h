@@ -13,7 +13,14 @@
 typedef struct stacky stacky;
 struct stacky
 {
-  void *data;
+  union data
+  {
+    char c;
+    short s;
+    int i;
+    long l;
+    void *ptr;
+  } data;
   
   struct stacky *next;
 };
@@ -33,8 +40,8 @@ struct stacky
     _Pragma ("GCC diagnostic pop")					\
       }
 
-#define stackyPop(stacky, type) (*(type *)stackyPopData (&stacky))
-#define stackyPeak(stacky, type) (*(type *)stacky->data)
+#define stackyPop(stacky, type) (type)stackyPopData (&stacky)
+#define stackyPeak(stacky, type) (type)stacky->data.l
 
 struct stacky *stackyCreateNode (struct stacky **stack);
 
@@ -44,7 +51,7 @@ void stackyPushInt (struct stacky **stack, int data);
 void stackyPushLong (struct stacky **stack, long data);
 void stackyPushBase (struct stacky **stack, void *data);
 
-void *stackyPopData (struct stacky **stack);
+long stackyPopData (struct stacky **stack);
 int stackyIsEmpty (struct stacky *stack);
 void stackyDestroyStack (struct stacky *stack);
 

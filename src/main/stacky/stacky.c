@@ -24,9 +24,7 @@ struct stacky *stackyCreateNode (struct stacky **stack)
   struct stacky *node = NULL;
 
   if (stack && (node = calloc (1, sizeof (struct stacky))))
-    {
-      node->next = *stack;
-    }
+    node->next = *stack;
   
   return node;
 }
@@ -48,15 +46,8 @@ void stackyPushChar (struct stacky **stackPtr, char data)
 
   if (stackPtr && (temp = stackyCreateNode (stackPtr)))
     {
-      if ((temp->data = (char *)calloc (1, sizeof (char))))
-	{
-	  *(char *)temp->data = data;
-	  *stackPtr = temp;
-	}
-      else /* Could not allocated space for the char data */
-	{
-	  free (temp);
-	}      
+      temp->data.c = data;
+      *stackPtr = temp;
     }
 }
 
@@ -77,15 +68,8 @@ void stackyPushShort (struct stacky **stackPtr, short data)
 
   if (stackPtr && (temp = stackyCreateNode (stackPtr)))
     {
-      if ((temp->data = (short *)calloc (1, sizeof (short))))
-	{
-	  *(short *)temp->data = data;
-	  *stackPtr = temp;
-	}
-      else /* Could not allocated space for the short data */
-	{
-	  free (temp);
-	}      
+      temp->data.s = data;
+      *stackPtr = temp;
     }
 }
 
@@ -106,15 +90,8 @@ void stackyPushInt (struct stacky **stackPtr, int data)
 
   if (stackPtr && (temp = stackyCreateNode (stackPtr)))
     {
-      if ((temp->data = (int *)calloc (1, sizeof (int))))
-	{
-	  *(int *)temp->data = data;
-	  *stackPtr = temp;
-	}
-      else /* Could not allocated space for the int data */
-	{
-	  free (temp);
-	}      
+      temp->data.i = data;
+      *stackPtr = temp;
     }
 }
 
@@ -135,15 +112,8 @@ void stackyPushLong (struct stacky **stackPtr, long data)
 
   if (stackPtr && (temp = stackyCreateNode (stackPtr)))
     {
-      if ((temp->data = (long *)calloc (1, sizeof (long))))
-	{
-	  *(long *)temp->data = data;
-	  *stackPtr = temp;
-	}
-      else /* Could not allocated space for the long data */
-	{
-	  free (temp);
-	}      
+      temp->data.l = data;
+      *stackPtr = temp;
     }
 }
 
@@ -164,15 +134,8 @@ void stackyPushBase (struct stacky **stackPtr, void *data)
 
   if (stackPtr && (temp = stackyCreateNode (stackPtr)))
     {
-      if ((temp->data = (void * *)calloc (1, sizeof (void *))))
-	{
-	  *(void **)temp->data = data;
-	  *stackPtr = temp;
-	}
-      else /* Could not allocated space for the void * data */
-	{
-	  free (temp);
-	}      
+      temp->data.ptr = data;
+      *stackPtr = temp;
     }
 }
 
@@ -186,14 +149,14 @@ void stackyPushBase (struct stacky **stackPtr, void *data)
  * Function Returns -- A pointer to the data popped off of the given Stacky stack.
  * Notes --
  */
-void *stackyPopData (struct stacky **stackPtr)
+long stackyPopData (struct stacky **stackPtr)
 {
   struct stacky *temp = NULL;
-  void *data = NULL;
+  long data = 0;
   
   if (stackPtr && (*stackPtr))
     {
-      data = (*stackPtr)->data;
+      data = (long)(*stackPtr)->data.l;
       temp = (*stackPtr);
       (*stackPtr) = (*stackPtr)->next;
       
@@ -240,7 +203,6 @@ void stackyDestroyStack (struct stacky *stack)
   if (stack)
     {
       stackyDestroyStack (stack->next);
-      free (stack->data);
       free (stack);
     }
 }

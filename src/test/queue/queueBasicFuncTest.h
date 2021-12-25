@@ -23,35 +23,9 @@ START_TEST (initQueueTest0)
 {
   queue *queue = NULL;
 
-  queueInitNode (&queue, NULL);
+  queueInitNode (&queue);
   ck_assert_ptr_ne (queue, NULL);
   free (queue);
-}
-END_TEST
-
-/*
- * Author -- Meevs
- * Creation Date -- Fri Dec 24 01:00:53 2021
- * Function Name -- initQueueTest1 
- * Function Purpose -- Tests the basic initialization of a queue with a given data value
- * Function Parameters -- 
- * Function Returns -- void
- * Notes --
- */
-START_TEST (initQueueTest1)
-{
-  struct queue *queue = NULL;
-  int *dataPtr = (int *)calloc (1, sizeof (int));
-
-  ck_assert_ptr_ne (dataPtr, NULL);
-  *dataPtr = 10;
-  queueInitNode (&queue, (void *)dataPtr);
-
-  ck_assert_ptr_ne (queue, NULL);
-  ck_assert_int_eq (*(int *)queue->data, 10);
-
-  free (queue->data);
-  free (queue);  
 }
 END_TEST
 
@@ -67,15 +41,12 @@ END_TEST
 START_TEST (queueGetSizeTest0)
 {
   queue *queue = NULL;
-  char *dataPtr = (char *)calloc (1, sizeof (char *));
 
-  ck_assert_ptr_ne (dataPtr, NULL);
-  *dataPtr = 'a';  
-  queueInitNode (&queue, (void *)dataPtr);
+  queueEnqueue (queue, 'a');
+  
   ck_assert_ptr_ne (queue, NULL);
   ck_assert_int_eq (queueGetSize (queue), 1);
-
-  free (queue->data);
+  
   free (queue);
 }
 END_TEST
@@ -94,26 +65,16 @@ START_TEST (queueGetSizeTest1)
   struct queue *queue = NULL;
   struct queue *tempPtr = NULL;
   const char elements [] = {'a', 'b', 'c', '\0'};  
-  char *charPtr = NULL;
   int index = 0;
 
   for (index = 0; elements [index]; index++)
-    {
-      charPtr = (char *)calloc (1, sizeof (char));
-      ck_assert_ptr_ne (charPtr, NULL);
-      *charPtr = elements [index];
-
-      queueInitNode (&queue, (void *)charPtr);
-    }
+    queueEnqueue (queue, elements [index]);
 
   ck_assert_ptr_ne (queue, NULL);
   ck_assert_int_eq (queueGetSize (queue), index - 1);
 
   for (tempPtr = queue; tempPtr; tempPtr = tempPtr->next)
-    {
-      free (tempPtr->data);
-      free (tempPtr);
-    }
+    free (tempPtr);
 }
 END_TEST
 
@@ -129,16 +90,12 @@ END_TEST
 START_TEST (queueFrontTest0)
 {
   struct queue *queue = NULL;
-  char *dataPtr = (char *)calloc (1, sizeof (char));
 
-  ck_assert_ptr_ne (dataPtr, NULL);
-  *dataPtr = 'a';
-  queueInitNode (&queue, dataPtr);
+  queueEnqueue (queue, 'a');
   
   ck_assert_ptr_ne (queue, NULL);
   ck_assert_int_eq (queueFront (queue, char), 'a');
   
-  free (queue->data);
   free (queue);
 }
 END_TEST
@@ -157,27 +114,16 @@ START_TEST (queueFrontTest1)
   struct queue *queue = NULL;
   struct queue *tempPtr = NULL;
   const char elements [] = {'a', 'b', 'c', '\0'};
-  char *dataPtr = NULL;
   int index = 0;
 
   for (index = 0; elements [index]; index++)
-    {
-      dataPtr = (char *)calloc (1, sizeof (char));
-      ck_assert_ptr_ne (dataPtr, NULL);
-
-      *dataPtr = elements [index];
-      
-      queueInitNode (&queue, dataPtr);
-    }
+    queueEnqueue (queue, elements [index]);
 
   ck_assert_ptr_ne (queue, NULL);
   ck_assert_int_eq (queueFront (queue, char), 'a');
   
   for (tempPtr = queue; tempPtr; tempPtr = tempPtr->next)
-    {
-      free (tempPtr->data);
-      free (tempPtr);
-    }
+    free (tempPtr);
 }
 END_TEST
 
@@ -193,17 +139,12 @@ END_TEST
 START_TEST (queueRearTest0)
 {
   struct queue *queue = NULL;
-  char *dataPtr = (char *)calloc (1, sizeof (char));
 
-  ck_assert_ptr_ne (dataPtr, NULL);
-  *dataPtr = 'a';
-
-  queueInitNode (&queue, dataPtr);
+  queueEnqueue (queue, 'a');
 
   ck_assert_ptr_ne (queue, NULL);
   ck_assert_int_eq (queueRear (queue, char), 'a');
   
-  free (queue->data);
   free (queue);
 }
 END_TEST
@@ -222,26 +163,16 @@ START_TEST (queueRearTest1)
   struct queue *queue = NULL;
   struct queue *tempPtr = NULL;
   const char elements [] = {'a', 'b', 'c', '\0'};
-  char *dataPtr = NULL;
   int index = 0;
   
   for (index = 0; elements [index]; index++)
-    {
-      dataPtr = (char *)calloc (1, sizeof (char));
-      ck_assert_ptr_ne (dataPtr, NULL);
-
-      *dataPtr = elements [index];
-      queueInitNode (&queue, dataPtr);
-    }
-
+    queueEnqueue (queue, elements [index]);
+  
   ck_assert_ptr_ne (queue, NULL);
   ck_assert_int_eq (queueRear (queue, char), 'c');
 
   for (tempPtr = queue; tempPtr; tempPtr = tempPtr->next)
-    {
-      free (tempPtr->data);
-      free (tempPtr);
-    }
+    free (tempPtr);
 }
 END_TEST
 
@@ -257,12 +188,9 @@ END_TEST
 START_TEST (queueDequeueTest)
 {
   queue *queue = NULL;
-  int *dataPtr = calloc (1, sizeof (int *));
-
-  ck_assert_ptr_ne (dataPtr, NULL);
-  *dataPtr = 20;
   
-  queueInitNode (&queue, dataPtr);
+  queueEnqueue (queue, 20);
+  
   ck_assert_ptr_ne (queue, NULL);  
   ck_assert_int_eq (queueDequeue (queue, int), 20);
 }

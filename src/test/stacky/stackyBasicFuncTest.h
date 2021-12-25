@@ -28,7 +28,7 @@ START_TEST (stackyInitTest)
   stackyPush (stack, 10);
 
   ck_assert_ptr_ne (stack, NULL);
-  ck_assert_int_eq (*(int *)stack->data, 10);
+  ck_assert_int_eq (stack->data.i, 10);
   
   stackyDestroyStack (stack);
 }

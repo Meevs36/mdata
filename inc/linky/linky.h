@@ -15,7 +15,14 @@ typedef struct linky linky;
 struct linky
 {
   unsigned int size;
-  void *data;
+  union data
+  {
+    char c;
+    short s;
+    int i;
+    long l;
+    void *ptr;
+  } data;
 
   struct linky *next;
   struct linky *prev;
@@ -35,7 +42,7 @@ struct linky
     _Pragma ("GCC diagnostic pop")					\
       }
 
-#define linkyGetData(linky, type) (*((type *) linky->data))
+#define linkyGetData(linky, type) (type)linky->data.l
 
 struct linky **linkyAppendNode (struct linky **list);
 struct linky *linkyAddChar (struct linky **list, char data);

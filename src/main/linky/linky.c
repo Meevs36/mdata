@@ -64,8 +64,7 @@ struct linky *linkyAddChar (struct linky **list, char data)
   if (tempPtr != NULL)
     {
       generatedNode = *tempPtr;
-      generatedNode->data = calloc (1, sizeof (char));
-      *(char *)generatedNode->data = data;
+      generatedNode->data.c = data;
     }
   
   return generatedNode;
@@ -92,8 +91,7 @@ struct linky *linkyAddShort (struct linky **list, short data)
   if (tempPtr != NULL)
     {
       generatedNode = *tempPtr;
-      generatedNode->data = calloc (1, sizeof (short));
-      *(short *)generatedNode->data = data;     
+      generatedNode->data.s = data;
     }
   
   return generatedNode;
@@ -120,8 +118,7 @@ struct linky *linkyAddInt (struct linky **list, int data)
   if (tempPtr != NULL)
     {
       generatedNode = *tempPtr;
-      generatedNode->data = calloc (1, sizeof (int));
-      *(int *)generatedNode->data = data;
+      generatedNode->data.i = data;
     }
   
   return generatedNode;
@@ -146,8 +143,7 @@ struct linky *linkyAddLong (struct linky **list, long data)
   if (tempPtr != NULL)
     {
       generatedNode = *tempPtr;
-      generatedNode->data = calloc (1, sizeof (long));
-      *(long *)generatedNode->data = data;
+      generatedNode->data.l = data;
     }
   
   return generatedNode;
@@ -174,8 +170,7 @@ struct linky *linkyAddBase (struct linky **list, void *data)
   if (tempPtr != NULL)
     {
       generatedNode = *tempPtr;
-      generatedNode->data = calloc (1, sizeof (void *));
-      *(void **)generatedNode->data = data;
+      generatedNode->data.ptr = data;
     }
   
   return generatedNode;
@@ -196,7 +191,6 @@ void linkyDestroyList (struct linky *list)
   if (list != NULL)
     {
       linkyDestroyList (list->next);
-      free (list->data);
       free (list);
     }
 }

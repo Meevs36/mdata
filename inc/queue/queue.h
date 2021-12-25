@@ -15,7 +15,14 @@ typedef struct queue queue;
 struct queue
 {
   unsigned int size;
-  void *data;
+  union data
+  {
+    char c;
+    short s;
+    int i;
+    long l;
+    void *ptr;    
+  } data;
 
   struct queue *next;
 };
@@ -35,13 +42,13 @@ struct queue
       }
 
 #define queueGetSize(queue) queue->size
-#define queueDequeue(queue, type) *(type*)queueDequeueBase (&queue)
-#define queueFront(queue, type) *(type*)queue->data
-#define queueRear(queue, type) *(type*)queueGetRear (&queue)
+#define queueDequeue(queue, type) (type)queueDequeueBase (&queue)
+#define queueFront(queue, type) (type)queue->data.l
+#define queueRear(queue, type) (type)queueGetRear (&queue)
 
-void queueInitNode (struct queue **queue, void *dataPtr);
-void *queueDequeueBase (struct queue **queue);
-void *queueGetRear (struct queue **queue);
+struct queue *queueInitNode (struct queue **queue);
+long queueDequeueBase (struct queue **queue);
+long queueGetRear (struct queue **queue);
 void queueEnqueueChar (struct queue **queue, char data);
 void queueEnqueueShort (struct queue **queue, short data);
 void queueEnqueueInt (struct queue **queue, int data);
