@@ -308,4 +308,31 @@ START_TEST (queueLongTest)
 }
 END_TEST
 
+/*
+ * Author -- Meevs
+ * Creation Date -- Sat Dec 25 07:49:35 2021
+ * Function Name -- queuePtrTest 
+ * Function Purpose -- Tests the functionality of a queue made up of pointers
+ * Function Parameters -- 
+ * Function Returns -- void
+ * Notes --
+ */
+START_TEST (queuePtrTest)
+{
+  struct queue *queue = NULL;
+  const char *elements [] = {"Hello", " ", "World", NULL};
+  int index = 0;
+
+  for (index = 0; elements [index]; index++)
+    queueEnqueue (queue, elements [index]);
+
+  ck_assert_ptr_ne (queue, NULL);
+
+  for (index = 0; elements [index]; index++)
+    ck_assert_str_eq (queueDequeue (queue, char *), elements [index]);
+  
+  queueDestroyQueue (queue);
+}
+END_TEST
+
 #endif

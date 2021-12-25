@@ -73,6 +73,7 @@ TCase *genBasicTestCase ()
   tcase_add_test (basicTestCase, queueShortTest);
   tcase_add_test (basicTestCase, queueIntTest);
   tcase_add_test (basicTestCase, queueLongTest);
+  tcase_add_test (basicTestCase, queuePtrTest);
   
   return basicTestCase;
 }
