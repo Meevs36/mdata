@@ -1,4 +1,4 @@
-# Linky
+# MData Linky
 
 A generic linked list implemented in C.
 
@@ -8,11 +8,18 @@ A generic linked list implemented in C.
 
 The Linky data structure is defined as follows:
 
-```
+```C
   struct linky
   {
     unsigned int size;
-    void *data;
+    union data
+    {
+      char c;
+      short s;
+      int i;
+      long l;
+      void *ptr;
+    } data;
 
     struct linky *next;
     struct linky *prev;
@@ -37,9 +44,9 @@ Then, when compiling your program, simply include the `-lmbdata` flag.
 
 ## Example
 
-Provided is an example code snippet of a Linky list being used to store multiple integers.
+Provided is an example code snippet of a Linky list being used to store multiple integers and print them to the command line.
 
-```
+```C
 
   int x = 5;
   int z = 15;
@@ -53,10 +60,16 @@ Provided is an example code snippet of a Linky list being used to store multiple
 
   /* Print all integers stored in the Linky list */
   for (temp = list; temp; temp = temp->next)
-    printf ("%d\r\n", linkyGetData (temp, int));
+    printf ("Value: %d\r\n", linkyGetData (temp, int));
 
   linkyDestroyList (list); /* Clean up memory allocated by Linky */
 ```
 
+The expected output would be:
 
+```bash
+  Value: 5
+  Value: 10
+  Value: 15
+```
 

@@ -1,4 +1,4 @@
-# Meevs Box Data Structure Library
+# Meevs Box Data Structure Library Readme
 A library of generic data structures implemented in C.
 
 ## Features
@@ -8,24 +8,47 @@ This library features various generic data structures for C.
 These data structures are all generic, supporting anything you can throw at them!
 The data structures provided (or intended to be provided) in this library are:
 
-- Linky: A generic linked list implementation in C.
-- Stacky (In Progress): A generic stack implementation in C.
-- Queue (Unimplemented): A generic queue implementation in C.
+- Linky: A generic linked list implemented in C.
+- Stacky: A generic stack implemented in C.
+- Queue: A generic queue implemented in C.
+- Binary Tree: A generic binary tree implemented in C.
+
+## Dependencies
+---
+
+Required:
+- [cmake](https://cmake.org/)
+
+Optional:
+- [check](https://libcheck.github.io/check/)
 
 ## Installation
 ---
 
-First the library must be compiled.
-You can compile the library by running the command `make build`.
+1. Compilation
 
-Now that the library is built, you can install the library by running the command `make install` with root permissions.
+From the root of the project:
+```bash
+$ mkdir build
+$ cmake -S ./ -B ./build/
+$ make -C ./build/
+```
 
-After the library is installed, you can use it in your projects by compiling with the `-lmdata` flag.
+2. Verify Tests (if check is installed)
+```bash
+$ make test -C ./build/
+```
+
+3. Install onto system (requires root)
+```bash
+# make install -C ./build/
+```
 
 ## Library References
-- [Linky](src/linky/Linky.md)
-- [Stacky](src/stacky/Stacky.md)
-- [Queue](src/queue/Queue.md)
+- [Linky](src/main/linky/Linky.md)
+- [Stacky](src/main/stacky/Stacky.md)
+- [Queue](src/main/queue/Queue.md)
+- [Binary Tree](src/main/binaryTree/BinaryTree.md)
 
-
+## [Version Log](VersionLog.md)
 

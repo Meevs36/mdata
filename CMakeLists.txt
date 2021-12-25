@@ -2,11 +2,11 @@
 # Creation Date -- Wed Dec  1 05:51:34 2021
 # File Name -- CMakeLists.txt
 # Notes --
-#     -- 2021-12-25 -- Updated to version 0.2.0, implementing the Binary Tree data structure
+#     -- 2021-12-25 -- Version updates can now be tracked via the version.md file
 
 cmake_minimum_required (VERSION 3.16)
 
-project (mdata VERSION 0.2.0)
+project (mdata VERSION 0.2.1)
 
 add_subdirectory (inc)
 add_subdirectory (src)
