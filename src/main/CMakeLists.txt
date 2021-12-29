@@ -8,6 +8,7 @@
 add_subdirectory (linky)
 add_subdirectory (stacky)
 add_subdirectory (queue)
+add_subdirectory (binaryTree)
 
 add_library (mdata SHARED ${SOURCES})
 target_include_directories (mdata

@@ -6,6 +6,9 @@ Released version 0.2.x
 
 This update fixes memory leaks that were present in the Linky, and Stacky modules. 0.2.0 also brings Binary Trees to the library, allowing users to easily create binary trees with simple data values using the built in compare funciton, or complex data structures with custom compare functions.
 
+## 0.2.2
+- Fixed mistake where the new Binary Tree module was being excluded from the created .so file. This meant that the Binary Tree module would be missing when attempting to use it from the library file
+
 ## 0.2.1
 
 - Updates to documentation to keep it more up-to-date
