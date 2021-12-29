@@ -6,13 +6,14 @@
 
 cmake_minimum_required (VERSION 3.16)
 
-project (mdata VERSION 0.2.4)
+project (mdata VERSION 0.2.41)
 
 add_subdirectory (inc)
 add_subdirectory (src)
 
 add_custom_target (uninstall
-  xargs rm < install_manifest.txt
+  COMMAND xargs rm < install_manifest.txt 
+  COMMAND rmdir /usr/include/mdata/
   )
   
 

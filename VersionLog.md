@@ -6,6 +6,12 @@ Released version 0.2.x
 
 This update fixes memory leaks that were present in the Linky, and Stacky modules. 0.2.0 also brings Binary Trees to the library, allowing users to easily create binary trees with simple data values using the built in compare funciton, or complex data structures with custom compare functions.
 
+#### 0.2.41
+
+- Fixed another mistake in the installation of the library.
+  - Though the Binary Tree was now included in the .so file, the header file for the Binary Tree module was still not being installed. This patch fixes that!
+- Modified the make target 'uninstall' to also remove the '/usr/include/mdata/' directory
+
 ### 0.2.4
 
 - Modified the '*GetSize' functions for the Queue and Binary Tree modules to be more resistant to failure. They will no longer cause a segmentation fault if the given queue or binary tree are empty (uninitialized)
