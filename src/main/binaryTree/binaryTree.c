@@ -44,6 +44,44 @@ long btDefaultCmp (struct binaryTree *tree1, struct binaryTree *tree2)
 
 /*
  * Author -- Meevs
+ * Creation Date -- Wed Dec 29 10:00:24 2021
+ * Function Name -- btGetSize 
+ * Function Purpose -- Gets the size of the given binary tree
+ * Function Parameters -- 
+ * Function Returns -- The number of elements in the given binary tree
+ * Notes --
+ */
+unsigned int btGetSize (struct binaryTree *bt)
+{
+  unsigned int size = 0;
+
+  if (bt)
+    size = bt->size;
+  
+  return size;
+}
+
+/*
+ * Author -- Meevs
+ * Creation Date -- Wed Dec 29 10:03:36 2021
+ * Function Name -- btGetDataBase 
+ * Function Purpose -- Gets the data value from the given binary tree
+ * Function Parameters -- 
+ * Function Returns -- The data value of the given binary tree
+ * Notes --
+ */
+long btGetDataBase (struct binaryTree *bt)
+{
+  long data = 0;
+
+  if (bt)
+    data = bt->data.l;
+  
+  return data;
+}
+
+/*
+ * Author -- Meevs
  * Creation Date -- Sat Dec 25 10:39:31 2021
  * Function Name -- btAddChar 
  * Function Purpose -- Adds a char value to the given binaryTree

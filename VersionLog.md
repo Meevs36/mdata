@@ -6,7 +6,14 @@ Released version 0.2.x
 
 This update fixes memory leaks that were present in the Linky, and Stacky modules. 0.2.0 also brings Binary Trees to the library, allowing users to easily create binary trees with simple data values using the built in compare funciton, or complex data structures with custom compare functions.
 
-## 0.2.3
+### 0.2.4
+
+- Modified the '*GetSize' functions for the Queue and Binary Tree modules to be more resistant to failure. They will no longer cause a segmentation fault if the given queue or binary tree are empty (uninitialized)
+- Modified the version log headers to better represent the version modifications
+  - Smaller changes now use smaller headers than larger changes, as would kind of be expected
+
+### 0.2.3
+
 - Fixed a bug where using multiple data structures together (specifically including the header files of more than one data structure) led to compilation errors
 - Added the 'mdataTest' Which will test the functionality of the created .so file. This is to ensure the functionality of the library file itself, rather than just the source code.
   - This was actually why the Binary Tree module was excluded from the .so file in previous versions, the code worked fine! But the code was not included in the library file and therefore was not very useful!
@@ -14,10 +21,11 @@ This update fixes memory leaks that were present in the Linky, and Stacky module
   - Now there exists a '*TestSuite.c' which contains the main function for that modules test and the '*TestSuiteFuncs.c' file which generates the test suite for the respective module
   - This was to allow for easy re-use of the tests for the .so module
 
-## 0.2.2
+### 0.2.2
+
 - Fixed mistake where the new Binary Tree module was being excluded from the created .so file. This meant that the Binary Tree module would be missing when attempting to use it from the library file
 
-## 0.2.1
+### 0.2.1
 
 - Updates to documentation to keep it more up-to-date
   - Creation of the Stacky documentation
@@ -26,7 +34,8 @@ This update fixes memory leaks that were present in the Linky, and Stacky module
 - Creation of the Version Log (hey, that's this file!)
   - Changes can now be tracked here
 
-### 0.2.0
+## 0.2.0
+---
 
 - Added the Binary Tree module
   - Users can now easily create binary trees of simple data types using the provided default compare function
@@ -41,7 +50,7 @@ This update fixes memory leaks that were present in the Linky, and Stacky module
   - Remove over-intensive logging which was leading to real problems being lost in a sea of logs for tests that were infact working.
 - All modules now make use of unions, this allows for an abstraction of the data stored in the data structure, while appearing equivalent to the older implementation of generic pointers
 
-### 0.1.7
+## 0.1.7
 
 - Added [check](https://libcheck.github.io/check/) support. This allows for unit testing of each module ensuring that everything works as intended!
 - Added cmake rules to compile tests with check, these tests can be ran via
@@ -59,11 +68,11 @@ This update fixes memory leaks that were present in the Linky, and Stacky module
   ```
   for more detailed output of failed tests.
 
-### 0.1.6
+## 0.1.6
 
 - Added [cmake](https://cmake.org/) support, replacing the original custom makefile I had provided with this project. This will make the project more standardized and more intuitive to use. This will also make future modifications to the project much easier to make.
 
-### 0.1.5
+## 0.1.5
 
 - Implemented Queue
   - Implemented enqueuing of values into a queue
@@ -72,7 +81,7 @@ This update fixes memory leaks that were present in the Linky, and Stacky module
   - Implemented the 'rear' function, allowing for users to look at the back of the queue
 - Added support for double-linked Linky lists
 
-### 0.1.x
+## 0.1.x
 
 - Implemented Linky
   - Implemented adding nodes to a Linky list

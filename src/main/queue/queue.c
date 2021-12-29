@@ -75,6 +75,44 @@ long queueDequeueBase (struct queue **queue)
 
 /*
  * Author -- Meevs
+ * Creation Date -- Wed Dec 29 09:57:26 2021
+ * Function Name -- queueGetSize 
+ * Function Purpose -- Gets the size of the given queue
+ * Function Parameters -- 
+ * Function Returns -- The number of elements contained within the given queue
+ * Notes --
+ */
+unsigned int queueGetSize (struct queue *queue)
+{
+  unsigned int size = 0;
+
+  if (queue)
+    size = queue->size;
+  
+  return size;
+}
+
+/*
+ * Author -- Meevs
+ * Creation Date -- Wed Dec 29 10:06:41 2021
+ * Function Name -- queueGetFront 
+ * Function Purpose -- Gets the value from the front of the given queue
+ * Function Parameters -- 
+ * Function Returns -- The data held at the front of the given queue
+ * Notes --
+ */
+long queueGetFront (struct queue *queue)
+{
+  long data = 0;
+
+  if (queue)
+    data = queue->data.l;
+  
+  return data;
+}
+
+/*
+ * Author -- Meevs
  * Creation Date -- Fri Dec 24 02:20:56 2021
  * Function Name -- queueGetRear 
  * Function Purpose -- Gets the pointer of the last node in the queue

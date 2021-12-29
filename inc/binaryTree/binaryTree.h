@@ -14,7 +14,7 @@ typedef struct binaryTree binaryTree;
 
 struct binaryTree
 {
-  int size;
+  unsigned int size;
   
   struct binaryTree *left;
   struct binaryTree *right;
@@ -45,10 +45,11 @@ struct binaryTree
     _Pragma ("GCC diagnostic pop")					\
       }
 
-#define btGetSize(bt) bt->size
-#define btGetData(bt, type) (type)bt->data.l
+#define btGetData(bt, type) (type)btGetDataBase (bt)
 
 long btDefaultCmp (struct binaryTree *tree1, struct binaryTree *tree2);
+unsigned int btGetSize (struct binaryTree *bt);
+long btGetDataBase (struct binaryTree *bt);
 void btAddChar (struct binaryTree **bt, char data, long (*cmpFunc)(struct binaryTree *t1, struct binaryTree *t2));
 void btAddShort (struct binaryTree **bt, short data, long (*cmpFunc)(struct binaryTree *t1, struct binaryTree *t2));
 void btAddInt (struct binaryTree **bt, int data, long (*cmpFunc)(struct binaryTree *t1, struct binaryTree *t2));

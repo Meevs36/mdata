@@ -41,13 +41,14 @@ struct queue
       _Pragma ("GCC diagnostic pop")					\
       }
 
-#define queueGetSize(queue) queue->size
 #define queueDequeue(queue, type) (type)queueDequeueBase (&queue)
-#define queueFront(queue, type) (type)queue->data.l
+#define queueFront(queue, type) (type)queueGetFront (queue)
 #define queueRear(queue, type) (type)queueGetRear (&queue)
 
 struct queue *queueInitNode (struct queue **queue);
 long queueDequeueBase (struct queue **queue);
+unsigned int queueGetSize (struct queue *queue);
+long queueGetFront (struct queue *queue);
 long queueGetRear (struct queue **queue);
 void queueEnqueueChar (struct queue **queue, char data);
 void queueEnqueueShort (struct queue **queue, short data);
