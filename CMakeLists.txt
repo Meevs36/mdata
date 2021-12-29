@@ -6,7 +6,7 @@
 
 cmake_minimum_required (VERSION 3.16)
 
-project (mdata VERSION 0.2.2)
+project (mdata VERSION 0.2.3)
 
 add_subdirectory (inc)
 add_subdirectory (src)
@@ -22,3 +22,4 @@ add_test (NAME linkyTest COMMAND src/test/linky/mdataLinkyTest) # Testing for th
 add_test (NAME stackyTest COMMAND src/test/stacky/mdataStackyTest) # Testing for the Stacky module
 add_test (NAME queueTest COMMAND src/test/queue/mdataQueueTest) # Testing for the Queue module
 add_test (NAME binaryTreeTest COMMAND src/test/binaryTree/mdataBinaryTreeTest) # Testing for the Binary Tree module
+add_test (NAME mdataLib COMMAND src/test/mdata/mdataTest) # Testing to ensure that the mdata library was successfully installed onto the system. This test will only succeed if the 'make install' command has been run with root permissions from the build directory after compilation

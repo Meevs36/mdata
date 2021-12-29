@@ -15,6 +15,6 @@
 #include "binaryTreeBasicFuncTest.h"
 
 Suite *genBinaryTreeTestSuite ();
-TCase *genBasicTestCase ();
+TCase *genBTBasicTestCase ();
 
 #endif

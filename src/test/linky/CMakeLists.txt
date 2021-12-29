@@ -5,6 +5,7 @@
 
 add_executable (mdataLinkyTest
   linkyTestSuite.c
+  linkyTestSuiteFuncs.c
   ${CMAKE_SOURCE_DIR}/src/main/linky/linky.c
   )
 

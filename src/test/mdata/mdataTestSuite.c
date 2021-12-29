@@ -5,20 +5,27 @@
  * Notes -- 
  */
 
-#include <stdio.h>
-#include <check.h>
-
-#include "linky/linkyTestSuite.h"
+#include "mdataTestSuite.h"
 
 int main (int argC, char **argV)
 {
   SRunner *suiteRunner = NULL;
   Suite *linkySuite = NULL;
-
+  Suite *stackySuite = NULL;
+  Suite *queueSuite = NULL;
+  Suite *btSuite = NULL;
   int numberFailed = 0;
 
   linkySuite = genLinkyTestSuite ();
+  stackySuite = genStackyTestSuite ();
+  queueSuite = genQueueTestSuite ();
+  btSuite = genBinaryTreeTestSuite ();
+
+  /* Add test suites */
   suiteRunner = srunner_create (linkySuite);
+  srunner_add_suite (suiteRunner, stackySuite);
+  srunner_add_suite (suiteRunner, queueSuite);
+  srunner_add_suite (suiteRunner, btSuite);
 
   srunner_run_all (suiteRunner, CK_NORMAL);
   numberFailed = srunner_ntests_failed (suiteRunner);

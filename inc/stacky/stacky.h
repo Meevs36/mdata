@@ -13,7 +13,7 @@
 typedef struct stacky stacky;
 struct stacky
 {
-  union data
+  union
   {
     char c;
     short s;

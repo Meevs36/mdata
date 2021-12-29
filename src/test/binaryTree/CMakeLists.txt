@@ -5,6 +5,7 @@
 
 add_executable (mdataBinaryTreeTest
   binaryTreeTestSuite.c
+  binaryTreeTestSuiteFuncs.c
   ${CMAKE_SOURCE_DIR}/src/main/binaryTree/binaryTree.c
   )
 

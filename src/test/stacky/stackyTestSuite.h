@@ -15,6 +15,6 @@
 #include "stackyBasicFuncTest.h" /* Defines basic functionality tests */
 
 Suite *genStackyTestSuite ();
-TCase *genBasicTestCase ();
+TCase *genStackyBasicTestCase ();
 
 #endif

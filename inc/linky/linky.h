@@ -15,7 +15,7 @@ typedef struct linky linky;
 struct linky
 {
   unsigned int size;
-  union data
+  union
   {
     char c;
     short s;

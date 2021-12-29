@@ -19,7 +19,7 @@ struct binaryTree
   struct binaryTree *left;
   struct binaryTree *right;
 
-  union data
+  union
   {
     char c;
     short s;

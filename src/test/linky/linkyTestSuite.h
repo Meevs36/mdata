@@ -16,8 +16,8 @@
 #include "linkyDoubleLinkedListTest.h" /* Defines functionality tests for double linked lists */
 
 Suite *genLinkyTestSuite ();
-TCase *genBasicTestCase ();
-TCase *genDLLTestCase ();
+TCase *genLinkyBasicTestCase ();
+TCase *genLinkyDLLTestCase ();
 
 
 #endif

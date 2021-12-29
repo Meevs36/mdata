@@ -5,6 +5,7 @@
 
 add_executable (mdataQueueTest
   queueTestSuite.c
+  queueTestSuiteFuncs.c
   ${CMAKE_SOURCE_DIR}/src/main/queue/queue.c
   )
 

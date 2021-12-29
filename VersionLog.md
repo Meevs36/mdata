@@ -6,6 +6,14 @@ Released version 0.2.x
 
 This update fixes memory leaks that were present in the Linky, and Stacky modules. 0.2.0 also brings Binary Trees to the library, allowing users to easily create binary trees with simple data values using the built in compare funciton, or complex data structures with custom compare functions.
 
+## 0.2.3
+- Fixed a bug where using multiple data structures together (specifically including the header files of more than one data structure) led to compilation errors
+- Added the 'mdataTest' Which will test the functionality of the created .so file. This is to ensure the functionality of the library file itself, rather than just the source code.
+  - This was actually why the Binary Tree module was excluded from the .so file in previous versions, the code worked fine! But the code was not included in the library file and therefore was not very useful!
+- Broke up the '*TestSuite.c' files into two seperate files for each data structure
+  - Now there exists a '*TestSuite.c' which contains the main function for that modules test and the '*TestSuiteFuncs.c' file which generates the test suite for the respective module
+  - This was to allow for easy re-use of the tests for the .so module
+
 ## 0.2.2
 - Fixed mistake where the new Binary Tree module was being excluded from the created .so file. This meant that the Binary Tree module would be missing when attempting to use it from the library file
 

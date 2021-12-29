@@ -5,6 +5,7 @@
 
 add_executable (mdataStackyTest
   stackyTestSuite.c
+  stackyTestSuiteFuncs.c
   ${CMAKE_SOURCE_DIR}/src/main/stacky/stacky.c
   )
 

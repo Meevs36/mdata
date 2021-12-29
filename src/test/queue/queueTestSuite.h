@@ -15,6 +15,6 @@
 #include "queueBasicFuncTest.h"
 
 Suite *genQueueTestSuite ();
-TCase *genBasicTestCase ();
+TCase *genQueueBasicTestCase ();
 
 #endif

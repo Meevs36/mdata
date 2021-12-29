@@ -15,7 +15,7 @@ typedef struct queue queue;
 struct queue
 {
   unsigned int size;
-  union data
+  union
   {
     char c;
     short s;
