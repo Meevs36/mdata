@@ -6,16 +6,26 @@
 
 cmake_minimum_required (VERSION 3.16)
 
-project (mdata VERSION 0.2.41)
+project (mdata VERSION 0.2.42)
 
 add_subdirectory (inc)
 add_subdirectory (src)
 
+# Uninstall target for easy removal from host system
 add_custom_target (uninstall
   COMMAND xargs rm < install_manifest.txt 
   COMMAND rmdir /usr/include/mdata/
   )
-  
+
+# Added custom target to allow for easy, seperate compilation of all unit tests
+add_custom_target (mtests
+  COMMAND make mdataLinkyTest
+  COMMAND make mdataStackyTest
+  COMMAND make mdataQueueTest
+  COMMAND make mdataBinaryTreeTest
+  COMMAND make mdataTest
+  COMMENT Compiling and running unit tests
+  )
 
 # Enable unit testing to confirm use cases
 enable_testing ()

@@ -5,6 +5,7 @@
 #     -- 2021-12-28 -- This test is to ensure the functionality of the .so file. This will hopefully avoid mistakes in the future where I thought the Binary Tree module was working flawlessly (and it was) but it was actually missing from the .so
 
 add_executable (mdataTest
+  EXCLUDE_FROM_ALL
   mdataTestSuite.c
   ${CMAKE_SOURCE_DIR}/src/test/linky/linkyTestSuiteFuncs.c
   ${CMAKE_SOURCE_DIR}/src/test/stacky/stackyTestSuiteFuncs.c

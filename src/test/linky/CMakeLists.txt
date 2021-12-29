@@ -4,9 +4,10 @@
 # Notes -- 
 
 add_executable (mdataLinkyTest
+  EXCLUDE_FROM_ALL
   linkyTestSuite.c
   linkyTestSuiteFuncs.c
-  ${CMAKE_SOURCE_DIR}/src/main/linky/linky.c
+  ${CMAKE_SOURCE_DIR}/src/main/linky/linky.c  
   )
 
 target_include_directories (mdataLinkyTest

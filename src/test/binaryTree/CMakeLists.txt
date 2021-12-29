@@ -4,6 +4,7 @@
 # Notes -- 
 
 add_executable (mdataBinaryTreeTest
+  EXCLUDE_FROM_ALL
   binaryTreeTestSuite.c
   binaryTreeTestSuiteFuncs.c
   ${CMAKE_SOURCE_DIR}/src/main/binaryTree/binaryTree.c

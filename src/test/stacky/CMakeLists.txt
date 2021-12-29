@@ -4,6 +4,7 @@
 # Notes -- 
 
 add_executable (mdataStackyTest
+  EXCLUDE_FROM_ALL
   stackyTestSuite.c
   stackyTestSuiteFuncs.c
   ${CMAKE_SOURCE_DIR}/src/main/stacky/stacky.c

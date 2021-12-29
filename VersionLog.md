@@ -6,6 +6,14 @@ Released version 0.2.x
 
 This update fixes memory leaks that were present in the Linky, and Stacky modules. 0.2.0 also brings Binary Trees to the library, allowing users to easily create binary trees with simple data values using the built in compare funciton, or complex data structures with custom compare functions.
 
+#### 0.2.42
+
+- Removed the unit tests from the make 'all' target. Since not all users may be interested in developing this library and instead may just want to use it, it would be unfair to expect them to install a unit test framework to use the library.
+  - The make 'all' target will ONLY compile the library .so file
+  - Added a new make target, the make 'mtests' target
+    - This will compile all unit test executables
+    - This new target should be run prior to the make 'test' target, or ctest
+
 #### 0.2.41
 
 - Fixed another mistake in the installation of the library.

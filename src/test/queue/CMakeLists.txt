@@ -4,6 +4,7 @@
 # Notes -- 
 
 add_executable (mdataQueueTest
+  EXCLUDE_FROM_ALL
   queueTestSuite.c
   queueTestSuiteFuncs.c
   ${CMAKE_SOURCE_DIR}/src/main/queue/queue.c
