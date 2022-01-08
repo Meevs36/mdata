@@ -15,10 +15,10 @@ struct stacky
 {
   union
   {
-    char c;
-    short s;
-    int i;
-    long l;
+    int8_t c;
+    int16_t s;
+    int32_t i;
+    int64_t l;
     void *ptr;
   } data;
   
