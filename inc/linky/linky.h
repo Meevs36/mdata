@@ -9,6 +9,7 @@
 #define __LINKY__
 
 #include <stdlib.h>
+#include <stdint.h>
 
 typedef struct linky linky;
 

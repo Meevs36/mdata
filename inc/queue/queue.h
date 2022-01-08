@@ -9,6 +9,7 @@
 #define __QUEUE__
 
 #include <stdlib.h>
+#include <stdint.h>
 
 typedef struct queue queue;
 

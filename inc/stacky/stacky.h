@@ -9,6 +9,7 @@
 #define __STACKY__
 
 #include <stdlib.h>
+#include <stdint.h>
 
 typedef struct stacky stacky;
 struct stacky

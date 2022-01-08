@@ -9,6 +9,7 @@
 #define __BINARY_TREE__
 
 #include <stdlib.h>
+#include <stdint.h>
 
 typedef struct binaryTree binaryTree;
 
