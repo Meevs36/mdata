@@ -9,13 +9,21 @@
 #define __LINKY__
 
 #include <stdlib.h>
+#include <stdint.h>
 
 typedef struct linky linky;
 
 struct linky
 {
   unsigned int size;
-  void *data;
+  union
+  {
+    int8_t c;
+    int16_t s;
+    int32_t i;
+    int64_t l;
+    void *ptr;
+  } data;
 
   struct linky *next;
   struct linky *prev;
@@ -35,7 +43,7 @@ struct linky
     _Pragma ("GCC diagnostic pop")					\
       }
 
-#define linkyGetData(linky, type) (*((type *) linky->data))
+#define linkyGetData(linky, type) (type)linky->data.l
 
 struct linky **linkyAppendNode (struct linky **list);
 struct linky *linkyAddChar (struct linky **list, char data);

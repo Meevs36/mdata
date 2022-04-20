@@ -54,3 +54,6 @@ dkms.conf
 # Emacs files
 *~
 \#*#
+
+# Build directory
+build
