@@ -3,25 +3,20 @@
 # File Name -- CMakeLists.txt
 # Notes -- 
 
-# Each subdirectory will populate the SOURCES variable with all respective files
-# These will be combined here into the 'libmdata.so' shared object
-add_subdirectory (linky)
-add_subdirectory (stacky)
-add_subdirectory (queue)
-add_subdirectory (binaryTree)
 
-add_library (mdata SHARED ${SOURCES})
-target_include_directories (mdata
-  PRIVATE
-  ${CMAKE_SOURCE_DIR}/inc/
-  ${CMAKE_SOURCE_DIR}/inc/linky/
-  ${CMAKE_SOURCE_DIR}/inc/stacky/
-  ${CMAKE_SOURCE_DIR}/inc/queue/
-  ${CMAKE_SOURCE_DIR}/inc/binaryTree/
-  )
-target_link_directories (mdata
-  PRIVATE
-  ${CMAKE_SOURCE_DIR}/lib/
-  )
+# Only enter sub-directory if the respective module is infact enabled
+if (NOT (${LINKY_ENABLED} EQUAL -1))
+  add_subdirectory (linky)
+endif ()
 
-install (TARGETS mdata DESTINATION /usr/lib/)
+if (NOT (${STACKY_ENABLED} EQUAL -1))
+  add_subdirectory (stacky)
+endif ()
+
+if (NOT (${QUEUE_ENABLED} EQUAL -1))
+  add_subdirectory (queue)
+endif ()
+
+if (NOT (${BT_ENABLED} EQUAL -1))
+  add_subdirectory (binaryTree)
+endif ()

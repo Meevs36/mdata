@@ -3,5 +3,11 @@
 # File Name -- CMakeLists.txt
 # Notes -- 
 
-list (APPEND SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/binaryTree.c)
-set (SOURCES ${SOURCES} PARENT_SCOPE)
+add_library (binaryTree
+  OBJECT
+  ${CMAKE_CURRENT_SOURCE_DIR}/binaryTree.c
+  )
+
+target_include_directories (binaryTree
+  PRIVATE ${CMAKE_SOURCE_DIR}/inc/binaryTree/
+  )

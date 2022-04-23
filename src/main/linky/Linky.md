@@ -40,7 +40,7 @@ User allocated memory that is appended to the list will not be released, it is e
 ## Usage
 
 To use Linky, first you must include the Linky header `#include <mbdata/linky.h>`.
-Then, when compiling your program, simply include the `-lmbdata` flag.
+Then, when compiling your program, simply include the `-lmdata` flag.
 
 ## Example
 

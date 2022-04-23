@@ -3,5 +3,11 @@
 # File Name -- CMakeLists.txt
 # Notes -- 
 
-list (APPEND SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/stacky.c)
-set (SOURCES ${SOURCES} PARENT_SCOPE)
+add_library (stacky
+  OBJECT
+  ${CMAKE_CURRENT_SOURCE_DIR}/stacky.c
+  )
+
+target_include_directories (stacky
+  PRIVATE ${CMAKE_SOURCE_DIR}/inc/stacky/
+  )

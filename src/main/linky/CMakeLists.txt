@@ -3,5 +3,11 @@
 # File Name -- CMakeLists.txt
 # Notes -- 
 
-list (APPEND SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/linky.c)
-set (SOURCES ${SOURCES} PARENT_SCOPE)
+add_library (linky
+  OBJECT
+  ${CMAKE_CURRENT_SOURCE_DIR}/linky.c
+  )
+
+target_include_directories (linky
+  PRIVATE ${CMAKE_SOURCE_DIR}/inc/linky/
+  )

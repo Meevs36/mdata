@@ -3,5 +3,11 @@
 # File Name -- CMakeLists.txt
 # Notes -- 
 
-list (APPEND SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/queue.c)
-set (SOURCES ${SOURCES} PARENT_SCOPE)
+add_library (queue
+  OBJECT
+  ${CMAKE_CURRENT_SOURCE_DIR}/queue.c
+  )
+
+target_include_directories (queue
+  PRIVATE ${CMAKE_SOURCE_DIR}/inc/queue/
+  )

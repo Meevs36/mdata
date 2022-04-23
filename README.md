@@ -29,15 +29,33 @@ Optional:
 
 From the root of the project:
 ```bash
-$ mkdir build
 $ cmake -S ./ -B ./build/
-$ make -C ./build/
+$ make [all] -C ./build/
 ```
 
-2. Verify Tests (if check is installed)
+The modules which are compiled into the mdata library can be controlled through the use of the 'MDATA_MODULES' variable when executing cmake. The 'MDATA_MODULES' variable takes a semicolon-seperated list of which modules should be included into the final build of the library. The modules are defined as follows:
+* LINKY
+* STACKY
+* QUEUE
+* BT
+If the 'MDATA_MODULES' variable is not defined, the library will include all modules by default.
+
+Example:
 ```bash
+$ cmake -S ./ -B ./build -D MDATA_MODULES="LINKY;STACKY"
+```
+Would compile the Linky and Stacky modules into the mdata library
+
+2. Verify Tests (if check is installed)
+
+The 'mtests' build target will compile all tests and must be run prior to attempting the 'test' target
+
+```bash
+$ make mtests -C ./build/
 $ make test -C ./build/
 ```
+
+Note: The 'mtests' target will only compile tests for modules which have been enabled. Similarly, the 'test' target will only execute tests from modules which have been enabled.
 
 3. Install onto system (requires root)
 ```bash

@@ -6,6 +6,22 @@ Released version 0.2.x
 
 This update fixes memory leaks that were present in the Linky, and Stacky modules. 0.2.0 also brings Binary Trees to the library, allowing users to easily create binary trees with simple data values using the built in compare funciton, or complex data structures with custom compare functions.
 
+### 0.2.5
+
+- Modified the project's cmake files to make use of the 'target_sources' command rather than appending all sources to a global list
+- Modified the project's cmake files to compile each module into their own seperate archives rather than one shared object
+  - These seperate archives can then be compiled together to form the shared object with the desired modules
+- Added logic to allow for compilation of specific modules of the library
+  - Users can setup their build directory to only compile specific modules of the mdata libray into the final build
+  - This is controlled through the 'MDATA_MODULES' variable which can be set when executing `cmake` through the -D flag
+  - Tests will only be compiled/executed when the respective module has been enabled
+  - Added output to indicate which modules have been enabled when executing `cmake`
+- Removed the 'mdataTest' test suite from compilation as it has been deemed a non-useful test
+- Updates to the 'README.md' file
+  - Added documentation explaining how to make use of the modular compilation added in this patch
+  - Future revision of the documentation here might be required
+- Fixed small mistake in the 'Linky.md' file where it references using '-lmbdata' instead of '-lmdata' 
+
 #### 0.2.43 -- 2022-01-08
 
 - Modified data structure definitions to instead use the stdint data types. This is to be more precise with the widths of the basic data values that shall be held.
