@@ -38,6 +38,7 @@ The modules which are compiled into the mdata library can be controlled through 
 * STACKY
 * QUEUE
 * BT
+
 If the 'MDATA_MODULES' variable is not defined, the library will include all modules by default.
 
 Example:
