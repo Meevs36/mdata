@@ -6,7 +6,17 @@ Released version 0.2.x
 
 This update fixes memory leaks that were present in the Linky, and Stacky modules. 0.2.0 also brings Binary Trees to the library, allowing users to easily create binary trees with simple data values using the built in compare funciton, or complex data structures with custom compare functions.
 
-### 0.2.5
+
+### 0.2.6 -- 2022-04-25
+
+- Added new valgrind tests for each module
+  - The valgrind test is only included if the respective module is enabled
+  - The valgrind test will simply re-run the already established tests under valgrind, failing if valgrind reports any errors or memory leaks
+  - At time of writing all four modules are plagued by memory leaks of varying degrees (these will be addressed in a future patch
+- Modified main cmake file to incldue the addition of above mentioned tests
+- Added missing date for 0.2.5 patch date
+
+### 0.2.5 -- 2022-04-23
 
 - Modified the project's cmake files to make use of the 'target_sources' command rather than appending all sources to a global list
 - Modified the project's cmake files to compile each module into their own seperate archives rather than one shared object
