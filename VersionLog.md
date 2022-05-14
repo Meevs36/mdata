@@ -6,6 +6,19 @@ Released version 0.2.x
 
 This update fixes memory leaks that were present in the Linky, and Stacky modules. 0.2.0 also brings Binary Trees to the library, allowing users to easily create binary trees with simple data values using the built in compare funciton, or complex data structures with custom compare functions.
 
+### 0.2.6.1 -- 2022-05-13
+
+- Modifications were made to the previously implemented valgrind tests
+  - The tests will no longer treat "reachable" memory segments as an error when conducting the valgrind test. This is for two reasons
+    - Valgrind does not consider a "reachable" memory segment to be an error by default
+    - This creates issues when trying to use the "fork" mode of the Check unit testing library
+  - Removed the setting of the CK_FORK environment variable in the 'CMakeLists.txt' file
+    - The origianl intention behind setting this variable was to avoid forking causing "reachable" "memory leaks", since that is no longer required, this action is obsolete
+    - This flag didn't actually achieve what the original intention was anyways (it only sets the ENV for the CMake build)
+- The Linky, Stacky, and Binary Tree modules now all pass their respective valgrind tests
+  - The Queue module will be looked into in a future update
+- Modified the 'VersionLog.md' so that some previous tweaks are represented as such and not as patches from the future
+  - I honestly have no idea what I was thinking when I created those tweaks...
 
 ### 0.2.6 -- 2022-04-25
 
@@ -32,13 +45,13 @@ This update fixes memory leaks that were present in the Linky, and Stacky module
   - Future revision of the documentation here might be required
 - Fixed small mistake in the 'Linky.md' file where it references using '-lmbdata' instead of '-lmdata' 
 
-#### 0.2.43 -- 2022-01-08
+#### 0.2.4.3 -- 2022-01-08
 
 - Modified data structure definitions to instead use the stdint data types. This is to be more precise with the widths of the basic data values that shall be held.
   - These changes were made specifically with 64-bit systems in mind
   - These changes were made to better support Windows builds
 
-#### 0.2.42
+#### 0.2.4.2
 
 - Removed the unit tests from the make 'all' target. Since not all users may be interested in developing this library and instead may just want to use it, it would be unfair to expect them to install a unit test framework to use the library.
   - The make 'all' target will ONLY compile the library .so file
@@ -46,7 +59,7 @@ This update fixes memory leaks that were present in the Linky, and Stacky module
     - This will compile all unit test executables
     - This new target should be run prior to the make 'test' target, or ctest
 
-#### 0.2.41
+#### 0.2.4.1
 
 - Fixed another mistake in the installation of the library.
   - Though the Binary Tree was now included in the .so file, the header file for the Binary Tree module was still not being installed. This patch fixes that!

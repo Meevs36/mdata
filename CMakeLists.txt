@@ -6,7 +6,7 @@
 
 cmake_minimum_required (VERSION 3.16)
 
-project (mdata VERSION 0.2.5)
+project (mdata VERSION 0.2.6.1)
 
 if (NOT (DEFINED MDATA_MODULES))
   list (APPEND MDATA_MODULES "LINKY" "STACKY" "QUEUE" "BT")
@@ -93,24 +93,24 @@ add_custom_target (mtests
 
 # Enable unit testing to confirm use cases
 enable_testing ()
-set (ENV{CK_FORK} "no") # Sets whether or not Check will make use of forking while conducting tests
+set (VALGRIND_ARGS --leak-check=full --error-exitcode=1 --exit-on-first-error=no)
 if (NOT (${LINKY_ENABLED} EQUAL -1))
   add_dependencies (mtests mdataLinkyTest)
   add_test (NAME linkyTest COMMAND ${CMAKE_BINARY_DIR}/src/test/linky/mdataLinkyTest) # Testing for the Linky module
-  add_test (NAME linkyValgrindTest COMMAND valgrind --errors-for-leak-kinds=all --leak-check=full --error-exitcode=1 --exit-on-first-error=no ${CMAKE_BINARY_DIR}/src/test/linky/mdataLinkyTest)
+  add_test (NAME linkyValgrindTest COMMAND valgrind ${VALGRIND_ARGS} ${CMAKE_BINARY_DIR}/src/test/linky/mdataLinkyTest)
 endif ()
 if (NOT (${STACKY_ENABLED} EQUAL -1))
   add_dependencies (mtests mdataStackyTest)
   add_test (NAME stackyTest COMMAND src/test/stacky/mdataStackyTest) # Testing for the Stacky module
-  add_test (NAME stackyValgrindTest COMMAND valgrind --errors-for-leak-kinds=all --leak-check=full --error-exitcode=1 --exit-on-first-error=no ${CMAKE_BINARY_DIR}/src/test/stacky/mdataStackyTest)
+  add_test (NAME stackyValgrindTest COMMAND valgrind ${VALGRIND_ARGS} ${CMAKE_BINARY_DIR}/src/test/stacky/mdataStackyTest)
 endif ()
 if (NOT (${QUEUE_ENABLED} EQUAL -1))
   add_dependencies (mtests mdataQueueTest)
   add_test (NAME queueTest COMMAND src/test/queue/mdataQueueTest) # Testing for the Queue module
-  add_test (NAME queueValgrindTest COMMAND valgrind --errors-for-leak-kinds=all --leak-check=full --error-exitcode=1 --exit-on-first-error=no ${CMAKE_BINARY_DIR}/src/test/queue/mdataQueueTest)
+  add_test (NAME queueValgrindTest COMMAND valgrind ${VALGRIND_ARGS} ${CMAKE_BINARY_DIR}/src/test/queue/mdataQueueTest)
 endif ()
 if (NOT (${BT_ENABLED} EQUAL -1))
   add_dependencies (mtests mdataBinaryTreeTest)
   add_test (NAME binaryTreeTest COMMAND src/test/binaryTree/mdataBinaryTreeTest) # Testing for the Binary Tree module
-  add_test (NAME binaryTreeValgrindTest COMMAND valgrind --errors-for-leak-kinds=all --leak-check=full --error-exitcode=1 --exit-on-first-error=no ${CMAKE_BINARY_DIR}/src/test/binaryTree/mdataBinaryTreeTest)
+  add_test (NAME binaryTreeValgrindTest COMMAND valgrind ${VALGRIND_ARGS} ${CMAKE_BINARY_DIR}/src/test/binaryTree/mdataBinaryTreeTest)
 endif ()
