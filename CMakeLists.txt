@@ -6,7 +6,7 @@
 
 cmake_minimum_required (VERSION 3.16)
 
-project (mdata VERSION 0.2.6.1)
+project (mdata VERSION 0.2.6.2)
 
 if (NOT (DEFINED MDATA_MODULES))
   list (APPEND MDATA_MODULES "LINKY" "STACKY" "QUEUE" "BT")

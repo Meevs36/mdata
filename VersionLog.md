@@ -6,7 +6,13 @@ Released version 0.2.x
 
 This update fixes memory leaks that were present in the Linky, and Stacky modules. 0.2.0 also brings Binary Trees to the library, allowing users to easily create binary trees with simple data values using the built in compare funciton, or complex data structures with custom compare functions.
 
-### 0.2.6.1 -- 2022-05-13
+#### 0.2.6.2 -- 2022-05-16
+
+- Fixed a mistake from the v0.2.6.1 tweak where many tests from the Linky module were commented out
+  - This was done for testing purposes, but should not have stayed in the v0.2.6.1 commit
+- Modified the v0.2.6.1 header in the 'VersionLog.md' file so that it uses the appropriate header size
+
+#### 0.2.6.1 -- 2022-05-13
 
 - Modifications were made to the previously implemented valgrind tests
   - The tests will no longer treat "reachable" memory segments as an error when conducting the valgrind test. This is for two reasons
