@@ -62,10 +62,11 @@ END_TEST
  */
 START_TEST (queueGetSizeTest1)
 {
-  struct queue *queue = NULL;
-  struct queue *tempPtr = NULL;
-  const char elements [] = {'a', 'b', 'c', '\0'};  
+  const char elements [] = {'a', 'b', 'c', '\0'};
+  
   int index = 0;
+
+  struct queue *queue = NULL;
 
   for (index = 0; elements [index]; index++)
     queueEnqueue (queue, elements [index]);
@@ -73,8 +74,7 @@ START_TEST (queueGetSizeTest1)
   ck_assert_ptr_ne (queue, NULL);
   ck_assert_int_eq (queueGetSize (queue), index - 1);
 
-  for (tempPtr = queue; tempPtr; tempPtr = tempPtr->next)
-    free (tempPtr);
+  queueDestroyQueue (queue);
 }
 END_TEST
 
@@ -111,19 +111,19 @@ END_TEST
  */
 START_TEST (queueFrontTest1)
 {
-  struct queue *queue = NULL;
-  struct queue *tempPtr = NULL;
   const char elements [] = {'a', 'b', 'c', '\0'};
+  
   int index = 0;
+
+  struct queue *queue = NULL;
 
   for (index = 0; elements [index]; index++)
     queueEnqueue (queue, elements [index]);
 
   ck_assert_ptr_ne (queue, NULL);
   ck_assert_int_eq (queueFront (queue, char), 'a');
-  
-  for (tempPtr = queue; tempPtr; tempPtr = tempPtr->next)
-    free (tempPtr);
+
+  queueDestroyQueue (queue);
 }
 END_TEST
 
@@ -159,11 +159,12 @@ END_TEST
  * Notes --
  */
 START_TEST (queueRearTest1)
-{
-  struct queue *queue = NULL;
-  struct queue *tempPtr = NULL;
+{  
   const char elements [] = {'a', 'b', 'c', '\0'};
+  
   int index = 0;
+
+  struct queue *queue = NULL; 
   
   for (index = 0; elements [index]; index++)
     queueEnqueue (queue, elements [index]);
@@ -171,8 +172,7 @@ START_TEST (queueRearTest1)
   ck_assert_ptr_ne (queue, NULL);
   ck_assert_int_eq (queueRear (queue, char), 'c');
 
-  for (tempPtr = queue; tempPtr; tempPtr = tempPtr->next)
-    free (tempPtr);
+  queueDestroyQueue (queue);
 }
 END_TEST
 

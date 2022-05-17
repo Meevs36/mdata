@@ -6,7 +6,7 @@
 
 cmake_minimum_required (VERSION 3.16)
 
-project (mdata VERSION 0.2.6.2)
+project (mdata VERSION 0.2.7)
 
 if (NOT (DEFINED MDATA_MODULES))
   list (APPEND MDATA_MODULES "LINKY" "STACKY" "QUEUE" "BT")
@@ -93,7 +93,7 @@ add_custom_target (mtests
 
 # Enable unit testing to confirm use cases
 enable_testing ()
-set (VALGRIND_ARGS --leak-check=full --error-exitcode=1 --exit-on-first-error=no)
+set (VALGRIND_ARGS --leak-check=full --error-exitcode=1 --exit-on-first-error=yes)
 if (NOT (${LINKY_ENABLED} EQUAL -1))
   add_dependencies (mtests mdataLinkyTest)
   add_test (NAME linkyTest COMMAND ${CMAKE_BINARY_DIR}/src/test/linky/mdataLinkyTest) # Testing for the Linky module

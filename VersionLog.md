@@ -6,6 +6,21 @@ Released version 0.2.x
 
 This update fixes memory leaks that were present in the Linky, and Stacky modules. 0.2.0 also brings Binary Trees to the library, allowing users to easily create binary trees with simple data values using the built in compare funciton, or complex data structures with custom compare functions.
 
+### 0.2.7 -- 2022-05-17
+
+- Modified valgrind tests for all modules to halt on the first error they encounter
+  - This is to aid with debugging issues
+- Implemented the 'queueDestroyQueue' function
+- Made modifications to some tests:
+  - Fixed an invalid read from 'queueGetSizeTest1'
+    - The test will now call 'queueDestroyQueue' to ensure proper release of allocated memory
+  - Fixed an invalid read from 'queueFrontTest1'
+    - The test will now call 'queueDestroyQueue' to ensure proper release of allocated memory
+  - Fixed an invalid read from 'queueRearTest1'
+    - The test will now call 'queueDestroyQueue' to ensure proper release of allocated memory
+- Fixed all memory leaks and memory errors in the Queue module
+- All tests are once again passing!
+
 #### 0.2.6.2 -- 2022-05-16
 
 - Fixed a mistake from the v0.2.6.1 tweak where many tests from the Linky module were commented out
