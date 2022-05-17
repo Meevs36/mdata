@@ -1,5 +1,5 @@
-# Meevs Box Data Structure Library Readme
-A library of generic data structures implemented in C.
+# Meevs Box Data Structure Library
+A flexible library of generic data structures implemented in C.
 
 ## Features
 ---

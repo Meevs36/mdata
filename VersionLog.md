@@ -6,6 +6,14 @@ Released version 0.2.x
 
 This update fixes memory leaks that were present in the Linky, and Stacky modules. 0.2.0 also brings Binary Trees to the library, allowing users to easily create binary trees with simple data values using the built in compare funciton, or complex data structures with custom compare functions.
 
+#### 0.2.7.1 -- 2022-05-17
+
+- Fixed typo in file 'binaryTreeTestSuite.h' where '__BINARY_TREE_TEST_SUTIE__' -> '__BINARY_TREE_TEST_SUITE__'
+- Mild changes in the 'README.md' file
+  - Removed 'Readme' from the title of the file (never really needed to be there in the first place)
+  - Modified description of the library to include the word 'flexible' since users can pick and choose which modules they like built into the library when compiling
+- Confirmed that the library compiles and passes all tests when compiled with clang-10.0.0  
+
 ### 0.2.7 -- 2022-05-17
 
 - Modified valgrind tests for all modules to halt on the first error they encounter

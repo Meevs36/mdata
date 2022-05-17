@@ -6,7 +6,7 @@
  */
 
 #ifndef __BINARY_TREE_TEST_SUITE__
-#define __BINARY_TREE_TEST_SUTIE__
+#define __BINARY_TREE_TEST_SUITE__
 
 #include <stdlib.h>
 #include <check.h>
