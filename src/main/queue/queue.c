@@ -233,7 +233,11 @@ void queueEnqueuePtr (struct queue **queue, void *data)
  */
 void queueDestroyQueue (struct queue *queue)
 {
-  
+  if (queue != NULL)
+    {
+      queueDestroyQueue (queue->next);
+      free (queue);
+    }
 }
 
  
