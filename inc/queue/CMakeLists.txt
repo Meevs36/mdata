@@ -3,7 +3,9 @@
 # File Name -- CMakeLists.txt
 # Notes -- 
 
-set (MDATA_HEADERS
-	${MDATA_HEADERS} ${CMAKE_CURRENT_SOURCE_DIR}/queue.h
-	PARENT_SCOPE
-)
+if (${ENABLE_QUEUE})
+	set (MDATA_HEADERS
+		${MDATA_HEADERS} ${CMAKE_CURRENT_SOURCE_DIR}/queue.h
+		PARENT_SCOPE
+	)
+endif ()
