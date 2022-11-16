@@ -11,3 +11,4 @@ add_library (linky
 target_include_directories (linky
   PRIVATE ${CMAKE_SOURCE_DIR}/inc/linky/
   )
+

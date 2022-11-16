@@ -3,4 +3,7 @@
 # File Name -- CMakeLists.txt
 # Notes -- 
 
-install (FILES queue.h DESTINATION /usr/include/mdata/)
+set (MDATA_HEADERS
+	${MDATA_HEADERS} ${CMAKE_CURRENT_SOURCE_DIR}/queue.h
+	PARENT_SCOPE
+)

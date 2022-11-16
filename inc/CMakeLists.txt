@@ -8,4 +8,13 @@ add_subdirectory (stacky)
 add_subdirectory (queue)
 add_subdirectory (binaryTree)
 
-install (DIRECTORY DESTINATION /usr/include/mdata/)
+set (CMAKE_INSTALL_INCLUDEDIR
+	"include/mdata"
+	PARENT_SCOPE
+)
+
+set_target_properties (mdata
+	PROPERTIES
+	PUBLIC_HEADER
+	"${MDATA_HEADERS}"
+)

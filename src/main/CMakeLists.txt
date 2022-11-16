@@ -5,18 +5,18 @@
 
 
 # Only enter sub-directory if the respective module is infact enabled
-if (NOT (${LINKY_ENABLED} EQUAL -1))
+if (${ENABLE_LINKY})
   add_subdirectory (linky)
 endif ()
 
-if (NOT (${STACKY_ENABLED} EQUAL -1))
+if (${ENABLE_STACKY})
   add_subdirectory (stacky)
 endif ()
 
-if (NOT (${QUEUE_ENABLED} EQUAL -1))
+if (${ENABLE_QUEUE})
   add_subdirectory (queue)
 endif ()
 
-if (NOT (${BT_ENABLED} EQUAL -1))
+if (${ENABLE_BT})
   add_subdirectory (binaryTree)
 endif ()

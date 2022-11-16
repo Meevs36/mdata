@@ -3,4 +3,7 @@
 # File Name -- CMakeLists.txt
 # Notes -- 
 
-install (FILES binaryTree.h DESTINATION /usr/include/mdata/)
+set (MDATA_HEADERS
+	${MDATA_HEADERS} ${CMAKE_CURRENT_SOURCE_DIR}/binaryTree.h
+	PARENT_SCOPE
+)
